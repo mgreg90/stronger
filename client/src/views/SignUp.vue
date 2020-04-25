@@ -3,10 +3,14 @@
     <BannerHeader />
     <FormHeader text="Sign Up" />
     <form>
-      <TextInput label="Email" />
+      <TextInput label="Email" v-model="email"/>
       <TextInput label="Password" />
       <TextInput label="Password Confirmation" />
-      <SubmitButton type="submit" value="Submit" />
+      <SubmitButton
+        label="Submit"
+        path="/api/v1/users"
+        @submitted="handleSubmit"
+      />
       <RedirectDisclaimer
         messageText="Already have an account?"
         linkText="Log in here."
@@ -17,12 +21,12 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import BannerHeader from '@/components/BannerHeader.vue';
 import FormHeader from '@/components/FormHeader.vue';
 import TextInput from '@/components/TextInput.vue';
 import SubmitButton from '@/components/SubmitButton.vue';
 import RedirectDisclaimer from '@/components/RedirectDisclaimer.vue';
+import UsersController from '@/api/v1/controllers/UsersController';
 
 export default {
   name: 'Home',
@@ -32,6 +36,18 @@ export default {
     SubmitButton,
     TextInput,
     RedirectDisclaimer,
+  },
+  data: () => ({
+    email: String,
+  }),
+  methods: {
+    handleSubmit() {
+      console.log('submit called');
+      debugger;
+      UsersController.create({
+        email: this.email,
+      });
+    },
   },
 };
 </script>

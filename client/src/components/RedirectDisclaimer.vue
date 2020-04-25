@@ -1,5 +1,7 @@
 <template>
-  <p class="redirect-disclaimer">{{messageText}} <a :href="href">{{linkText}}</a></p>
+  <p class="redirect-disclaimer">
+    {{messageText}} <router-link :to="href">{{linkText}}</router-link>
+  </p>
 </template>
 
 <script>

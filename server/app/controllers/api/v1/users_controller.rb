@@ -1,4 +1,4 @@
-class Api::V1::UsersController < ApplicationController
+class Api::V1::UsersController < ::ApiController
   def create
     user = User.create!(create_params)
     head :created
@@ -7,6 +7,7 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def create_params
+    byebug
     params.permit(:email, :password, :password_confirmation)
   end
 end

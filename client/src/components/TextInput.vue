@@ -1,6 +1,12 @@
 <template>
   <div id="container">
-    <input id="my-input" type="text" name="myInput" :placeholder="label">
+    <input
+      id="my-input"
+      type="text"
+      name="myInput"
+      :placeholder="label"
+      v-bind:email="email"
+      v-on:input="$emit('input', $event.target.value)">
   </div>
 </template>
 
@@ -9,6 +15,7 @@ export default {
   name: 'TextInput',
   props: {
     label: String,
+    email: String,
   },
 };
 </script>

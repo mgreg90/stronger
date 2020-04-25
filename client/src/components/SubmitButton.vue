@@ -1,13 +1,22 @@
 <template>
   <div id="container">
-    <button type="submit">Submit</button>
+    <button type="submit" v-on:click="handleSubmit">{{ label }}</button>
   </div>
 </template>
 
 <script>
 export default {
   name: 'SubmitButton',
-  props: {},
+  props: {
+    label: String,
+    path: String,
+  },
+  methods: {
+    handleSubmit(evt) {
+      evt.preventDefault();
+      this.$emit('submitted');
+    },
+  },
 };
 </script>
 
@@ -17,8 +26,7 @@ export default {
     flex-direction: row-reverse;
     padding: 15px 30px;
   }
-  /* TODO fix button */
-  /* next TODO make button create a user */
+
   #container button {
     color: #FFFAFF;
     background-color: #3E92CC;
@@ -28,6 +36,5 @@ export default {
     border-radius: 10px;
     padding: 20px;
     width: 40%;
-    /* height: 30px; */
   }
 </style>
