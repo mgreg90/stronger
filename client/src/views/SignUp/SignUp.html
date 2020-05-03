@@ -1,0 +1,28 @@
+<div class="home">
+  <banner-header />
+  <form-header text="Sign Up" />
+  <form>
+    <text-input
+      name="email"
+      label="Email"
+      v-model="email"
+      :error="emailError"
+    />
+    <text-input
+      name="password"
+      type="password"
+      label="Password"
+      v-model="password"
+      :error="passwordError"
+    />
+    <text-input
+      name="passwordConfirmation"
+      type="password"
+      label="Password Confirmation"
+      v-model="passwordConfirmation"
+      :error="passwordConfirmationError"
+    />
+    <submit-button label="Submit" path="/api/v1/users" @submitted="handleSubmit" />
+    <redirect-disclaimer messageText="Already have an account?" linkText="Log in here." href="/login" />
+  </form>
+</div>

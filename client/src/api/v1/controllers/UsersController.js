@@ -1,6 +1,5 @@
 const UsersController = {
   async create(payload) {
-    console.log('body', payload);
     const response = await fetch(
       'http://localhost:3000/api/v1/users', {
         method: 'POST',
@@ -8,10 +7,11 @@ const UsersController = {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: payload,
+        body: JSON.stringify(payload),
       },
     );
-    console.log('response', response);
+    const body = await response.json();
+    return { status: response.status, body };
   },
 };
 

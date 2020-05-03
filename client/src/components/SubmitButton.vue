@@ -24,7 +24,7 @@ export default {
   #container {
     display: flex;
     flex-direction: row-reverse;
-    padding: 15px 30px;
+    padding: 0px 30px 30px 30px;
   }
 
   #container button {

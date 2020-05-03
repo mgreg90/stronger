@@ -22,7 +22,7 @@ export default {
     padding: 0px 30px;
     font-family: Nobile;
     font-size: 12px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
   }
 
   .redirect-disclaimer a {
