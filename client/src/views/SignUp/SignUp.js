@@ -5,7 +5,9 @@ import SubmitButton from '@/components/SubmitButton.vue';
 import RedirectDisclaimer from '@/components/RedirectDisclaimer.vue';
 import UsersController from '@/api/v1/controllers/UsersController';
 import validate from '@/utils/validate';
-import requestFailed from '../../utils/requestFailed';
+import requestSuccessful from '@/utils/requestSuccessful';
+import appStorage from '@/utils/appStorage';
+import router from '../../router';
 
 const components = {
   BannerHeader,
@@ -60,7 +62,12 @@ const methods = {
       passwordConfirmation: this.passwordConfirmation,
     });
 
-    if (requestFailed(response)) {
+    if (requestSuccessful(response)) {
+      // store token
+      appStorage.setToken(response.body.token);
+      // navigate to home
+      router.push({ path: 'about' });
+    } else {
       // TODO: fire a toast with server side error
       console.error('ERROR!', response);
     }
