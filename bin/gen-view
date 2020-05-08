@@ -21,10 +21,41 @@ FileUtils.touch(dir.join("#{name}.html"))
 FileUtils.touch(dir.join("#{name}.css"))
 FileUtils.touch(dir.join("#{name}.js"))
 
-template = <<~TEMPLATE
+vue_template = <<~HTML
   <template src="./#{name}.html"></template>
   <style scoped src="./#{name}.css"></style>
   <script src="./#{name}.js"></script>
-TEMPLATE
+HTML
 
-File.open(dir.join('index.vue'), 'w+') { |f| f.write(template) }
+File.open(dir.join('index.vue'), 'w+') { |f| f.write(vue_template) }
+
+js_template = <<~JS
+  import AppHeader from '@/components/AppHeader.vue';
+
+  const components = {
+    AppHeader,
+  };
+
+  const data = () => ({
+
+  });
+
+  const methods = {
+
+  };
+
+  export default {
+    name: '#{name}',
+    components,
+    data,
+    methods,
+  };
+JS
+
+File.open(dir.join("#{name}.js"), 'w+') { |f| f.write(js_template) }
+
+html_template = <<~HTML
+  <div><app-header />#{name} View</div>
+HTML
+
+File.open(dir.join("#{name}.html"), 'w+') { |f| f.write(html_template) }
