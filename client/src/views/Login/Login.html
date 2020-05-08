@@ -1,10 +1,21 @@
-<div class="home">
-  <BannerHeader />
-  <FormHeader text="Log In" />
+<div>
+  <banner-header />
+  <form-header text="Log In" />
   <form>
-    <TextInput label="Email" />
-    <TextInput label="Password" />
-    <SubmitButton type="submit" value="Submit" />
-    <RedirectDisclaimer messageText="Don't have an account?" linkText="Sign up here." href="/signup" />
+    <text-input
+      name="email"
+      label="Email"
+      v-model="email"
+      :error="emailError"
+    />
+    <text-input
+      name="password"
+      label="Password"
+      type="password"
+      v-model="password"
+      :error="passwordError"
+    />
+    <submit-button label="Submit" @submitted="handleSubmit"/>
+    <redirect-disclaimer messageText="Don't have an account?" linkText="Sign up here." href="/signup" />
   </form>
 </div>

@@ -1,6 +1,6 @@
-class Api::V1::UsersController < ::ApiController
+class Api::V1::SessionsController < ApiController
   def create
-    command = CreateUser.call(**create_params)
+    command = CreateSession.call(**create_params)
 
     if command.success?
       render json: command.result, status: :created
@@ -13,6 +13,6 @@ class Api::V1::UsersController < ::ApiController
   private
 
   def create_params
-    params.permit(:email, :password, :password_confirmation).to_h.symbolize_keys
+    params.permit(:email, :password).to_h.symbolize_keys
   end
 end

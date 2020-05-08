@@ -9,7 +9,7 @@ export default {
   name: 'SubmitButton',
   props: {
     label: String,
-    path: String,
+    // path: String,
   },
   methods: {
     handleSubmit(evt) {

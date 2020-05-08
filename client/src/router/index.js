@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import applyAuthenticatedRoutes from '@/router/authenticate';
 import Login from '@/views/Login/index.vue';
 import SignUp from '@/views/SignUp/index.vue';
-import Home from '@/views/Home.vue';
+import Home from '@/views/Home/index.vue';
 
 Vue.use(VueRouter);
 
@@ -15,7 +15,6 @@ const routes = [
     meta: {
       public: true,
     },
-    // TODO figure out how to handle this
   },
   {
     path: '/signup',

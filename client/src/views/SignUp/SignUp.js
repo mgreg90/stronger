@@ -7,7 +7,7 @@ import UsersController from '@/api/v1/controllers/UsersController';
 import validate from '@/utils/validate';
 import requestSuccessful from '@/utils/requestSuccessful';
 import appStorage from '@/utils/appStorage';
-import router from '../../router';
+import router from '@/router';
 
 const components = {
   BannerHeader,

@@ -11,7 +11,7 @@ class CreateUser
     errors.add(:signup, user.errors.first) && return if user.errors.any?
     {
       message: "Success",
-      token: build_token
+      token: CreateToken.call(user).result
     }
   end
 
@@ -24,16 +24,6 @@ class CreateUser
       email: email,
       password: password,
       password_confirmation: password_confirmation
-    )
-  end
-
-  def build_token
-    exp = ((DateTime.now.utc + 1.days).to_f * 1000).floor
-
-    JsonWebToken.encode(
-      user_id: user.id,
-      email: user.email,
-      exp: exp
     )
   end
 
