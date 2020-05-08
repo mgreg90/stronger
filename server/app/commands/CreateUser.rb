@@ -28,9 +28,13 @@ class CreateUser
   end
 
   def build_token
+    exp = ((DateTime.now.utc + 1.days).to_f * 1000).floor
+
     JsonWebToken.encode(
       user_id: user.id,
-      email: user.email
+      email: user.email,
+      exp: exp
     )
   end
+
 end

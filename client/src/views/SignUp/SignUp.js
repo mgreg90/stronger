@@ -66,7 +66,7 @@ const methods = {
       // store token
       appStorage.setToken(response.body.token);
       // navigate to home
-      router.push({ path: 'about' });
+      router.push({ path: 'home' });
     } else {
       // TODO: fire a toast with server side error
       console.error('ERROR!', response);
