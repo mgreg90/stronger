@@ -4,10 +4,11 @@ import TextInput from '@/components/TextInput.vue';
 import SubmitButton from '@/components/SubmitButton.vue';
 import RedirectDisclaimer from '@/components/RedirectDisclaimer.vue';
 import SessionsController from '@/api/v1/controllers/SessionsController';
-import validate from '@/utils/validate';
-import requestSuccessful from '@/utils/requestSuccessful';
 import appStorage from '@/utils/appStorage';
+import apiUtils from '@/utils/apiUtils';
+import validate from '@/utils/validate';
 import router from '@/router';
+import formUtils from '../../utils/formUtils';
 
 const components = {
   BannerHeader,
@@ -24,6 +25,11 @@ const data = () => ({
   passwordError: '',
 });
 
+const handleSuccess = (response) => {
+  appStorage.setToken(response.body.token);
+  router.push({ path: 'home' });
+};
+
 const methods = {
   validateFields() {
     const simpleValidation = {
@@ -39,14 +45,11 @@ const methods = {
   },
 
   async handleSubmit() {
-    this.resetErrors();
+    formUtils.clearErrors(this, ['email', 'password']);
     const errors = this.validateFields();
 
     if (errors.length) {
-      errors.forEach((err) => {
-        this.$set(this, `${err.field}Error`, err.message);
-        console.error(err.field, err.message);
-      });
+      formUtils.setErrors(this, errors);
       return;
     }
 
@@ -55,22 +58,12 @@ const methods = {
       password: this.password,
     });
 
-    if (requestSuccessful(response)) {
-      // store token
-      appStorage.setToken(response.body.token);
-      // navigate to home
-      router.push({ path: 'home' });
-    } else {
-      // TODO: fire a toast with server side error
-      console.error('ERROR!', response);
+    if (!apiUtils.requestSuccessful(response)) {
+      apiUtils.handleErrors(this, response);
+      return;
     }
-  },
 
-  resetErrors() {
-    const errors = ['emailError', 'passwordError', 'passwordConfirmationError'];
-    errors.forEach((field) => {
-      this.$set(this, field, '');
-    });
+    handleSuccess(response);
   },
 };
 

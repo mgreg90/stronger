@@ -8,7 +8,7 @@ class CreateUser
   end
 
   def call
-    errors.add(:signup, user.errors.first) && return if user.errors.any?
+    errors.add(:email, user.error_message) && return if user.errors.any?
     {
       message: "Success",
       token: CreateToken.call(user).result

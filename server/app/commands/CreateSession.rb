@@ -1,6 +1,8 @@
 class CreateSession
   prepend SimpleCommand
 
+  ERROR_MESSAGE = "Email and/or password incorrect"
+
   def initialize(email:, password:)
     @email = email
     @password = password
@@ -8,7 +10,8 @@ class CreateSession
 
   def call
     if !user&.authenticate(password)
-      errors.add(:login, "Email/password invalid")
+      errors.add(:email, ERROR_MESSAGE)
+      errors.add(:password, ERROR_MESSAGE)
       return
     end
 

@@ -5,9 +5,10 @@ import SubmitButton from '@/components/SubmitButton.vue';
 import RedirectDisclaimer from '@/components/RedirectDisclaimer.vue';
 import UsersController from '@/api/v1/controllers/UsersController';
 import validate from '@/utils/validate';
-import requestSuccessful from '@/utils/requestSuccessful';
+import apiUtils from '@/utils/apiUtils';
 import appStorage from '@/utils/appStorage';
 import router from '@/router';
+import formUtils from '../../utils/formUtils';
 
 const components = {
   BannerHeader,
@@ -25,6 +26,11 @@ const data = () => ({
   passwordConfirmation: '',
   passwordConfirmationError: '',
 });
+
+const handleSuccess = (response) => {
+  appStorage.setToken(response.body.token);
+  router.push({ path: 'home' });
+};
 
 const methods = {
   validateFields() {
@@ -45,14 +51,12 @@ const methods = {
   },
 
   async handleSubmit() {
+    formUtils.clearErrors(this, ['email', 'password', 'passwordConfirmation']);
     this.resetErrors();
     const errors = this.validateFields();
 
     if (errors.length) {
-      errors.forEach((err) => {
-        this.$set(this, `${err.field}Error`, err.message);
-        console.error(err.field, err.message);
-      });
+      formUtils.setErrors(this, errors);
       return;
     }
 
@@ -62,15 +66,12 @@ const methods = {
       passwordConfirmation: this.passwordConfirmation,
     });
 
-    if (requestSuccessful(response)) {
-      // store token
-      appStorage.setToken(response.body.token);
-      // navigate to home
-      router.push({ path: 'home' });
-    } else {
-      // TODO: fire a toast with server side error
-      console.error('ERROR!', response);
+    if (!apiUtils.requestSuccessful(response)) {
+      apiUtils.handleErrors(this, response);
+      return;
     }
+
+    handleSuccess(response);
   },
 
   resetErrors() {

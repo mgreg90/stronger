@@ -1,12 +1,11 @@
 const AUTH_TOKEN = 'WORKOUT_APP_AUTH_TOKEN';
 
+const setToken = (value) => { localStorage.setItem(AUTH_TOKEN, value); };
+const getToken = () => localStorage.getItem(AUTH_TOKEN);
+
 const appStorage = {
-  setToken(value) {
-    localStorage.setItem(AUTH_TOKEN, value);
-  },
-  getToken() {
-    return localStorage.getItem(AUTH_TOKEN);
-  },
+  setToken,
+  getToken,
 };
 
 export default appStorage;

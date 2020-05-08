@@ -5,8 +5,7 @@ class Api::V1::UsersController < ::ApiController
     if command.success?
       render json: command.result, status: :created
     else
-      # todo change to use ant project-esque error handling
-      render json: { error: 'Error!' }, status: :unprocessable_entity
+      render command_error_json(command)
     end
   end
 
