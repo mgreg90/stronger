@@ -6,17 +6,21 @@ require 'bundler/inline'
 
 gemfile do
   source 'https://rubygems.org'
-  gem 'pry', require: true
+  gem 'colorize'
 end
 
 name = ARGV[0]
 
-puts "No name given!" && exit if !name
+if !name
+  puts "No name given!"
+  exit
+end
 
 dir = Pathname.new(__dir__).join('..', 'client', 'src', 'components')
 
 FileUtils.mkdir_p(dir)
-FileUtils.touch(dir.join("#{name}.vue"))
+files = ["#{name}.vue"]
+files.each { |f| FileUtils.touch(dir.join(f)) }
 
 vue_template = <<~HTML
   <template>
@@ -26,16 +30,27 @@ vue_template = <<~HTML
   </style>
 
   <script>
-    import AppHeader from '@/components/#{name}.vue';
 
     const props = {
+    };
+
+    const components = {
+    };
+
+    const methods = {
     };
 
     export default {
       name: '#{name}',
       props,
+      components,
+      methods,
     };
     </script>
 HTML
 
-File.open(dir.join("#{name}.vue"), 'w+') { |f| f.write(js_template) }
+File.open(dir.join("#{name}.vue"), 'w+') { |f| f.write(vue_template) }
+
+
+puts "Created:".green.bold
+files.each { |f| puts " - #{dir.join(f)}".light_blue.bold}

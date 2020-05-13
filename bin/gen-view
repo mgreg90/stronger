@@ -6,20 +6,22 @@ require 'bundler/inline'
 
 gemfile do
   source 'https://rubygems.org'
-  # gem 'pry', require: true
+  gem 'colorize'
 end
 
 name = ARGV[0]
 
-puts "No name given!" && exit if !name
+if !name
+  puts "No name given!"
+  exit
+end
 
 dir = Pathname.new(__dir__).join('..', 'client', 'src', 'views', name)
 
 FileUtils.mkdir_p(dir)
-FileUtils.touch(dir.join('index.vue'))
-FileUtils.touch(dir.join("#{name}.html"))
-FileUtils.touch(dir.join("#{name}.css"))
-FileUtils.touch(dir.join("#{name}.js"))
+
+files = ['index.vue', "#{name}.html", "#{name}.css", "#{name}.js"]
+files.each { |f| FileUtils.touch(dir.join(f)) }
 
 vue_template = <<~HTML
   <template src="./#{name}.html"></template>
@@ -29,7 +31,7 @@ HTML
 
 File.open(dir.join('index.vue'), 'w+') { |f| f.write(vue_template) }
 
-js_template = <<~JS
+js_template = <<~JAVASCRIPT
   import AppHeader from '@/components/AppHeader.vue';
 
   const components = {
@@ -50,7 +52,7 @@ js_template = <<~JS
     data,
     methods,
   };
-JS
+JAVASCRIPT
 
 File.open(dir.join("#{name}.js"), 'w+') { |f| f.write(js_template) }
 
@@ -59,3 +61,6 @@ html_template = <<~HTML
 HTML
 
 File.open(dir.join("#{name}.html"), 'w+') { |f| f.write(html_template) }
+
+puts "Created:".green.bold
+files.each { |f| puts " - #{dir.join(f)}".light_blue.bold}
