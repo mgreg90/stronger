@@ -4,13 +4,14 @@ import applyAuthenticatedRoutes from '@/router/authenticate';
 import Login from '@/views/Login/index.vue';
 import SignUp from '@/views/SignUp/index.vue';
 import Home from '@/views/Home/index.vue';
+import NotFound from '@/views/NotFound/index.vue';
+import QuickWorkout from '@/views/QuickWorkout/index.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'SignUp',
     component: SignUp,
     meta: {
       public: true,
@@ -18,7 +19,6 @@ const routes = [
   },
   {
     path: '/signup',
-    name: 'SignUp',
     component: SignUp,
     meta: {
       public: true,
@@ -26,7 +26,6 @@ const routes = [
   },
   {
     path: '/login',
-    name: 'Login',
     component: Login,
     meta: {
       public: true,
@@ -34,8 +33,15 @@ const routes = [
   },
   {
     path: '/home',
-    name: 'Home',
     component: Home,
+  },
+  {
+    path: '/quickWorkout/new',
+    component: QuickWorkout,
+  },
+  {
+    path: '*',
+    component: NotFound,
   },
 ];
 

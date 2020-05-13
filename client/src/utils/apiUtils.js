@@ -9,8 +9,13 @@ const handleErrors = (model, response) => {
       model.$set(model, `${err.field}Error`, err.message);
     });
   } else {
-    console.error('ERROR!', response.body.errors);
-    toasts.error(response.body.errors[0].message);
+    const unhandledError = {
+      message: 'Unhandled Server Error!',
+      status: response.status,
+    };
+
+    console.error('ERROR!', response.body?.errors || unhandledError);
+    toasts.error(response.body.errors?.[0]?.message || 'Something Went Wrong!');
   }
 };
 

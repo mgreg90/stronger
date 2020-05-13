@@ -1,30 +1,66 @@
 <template>
-  <div id="banner-header" >
-    <h1>Stronger</h1>
+  <div class="banner-header" >
+    <div class="back-button" :class="{hide: !backButton}" @click="handleBackClick">
+      <i class="material-icons md-18">arrow_back_ios</i>
+    </div>
+    <h1>{{text}}</h1>
   </div>
 </template>
 
 <script>
+const props = {
+  text: {
+    type: String,
+    default: 'Stronger',
+  },
+  backButton: {
+    type: Boolean,
+    default: true,
+  },
+};
+
+const components = {
+};
+
+const methods = {
+  handleBackClick() {
+    this.$router.go(-1);
+  },
+};
+
 export default {
   name: 'BannerHeader',
-  props: {
-    text: String,
-  },
+  props,
+  components,
+  methods,
 };
 </script>
 
 <style scoped>
 
-#banner-header {
-  height: 100px;
+.banner-header {
+  height: 60px;
   color: #FFFAFF;
   background-color: #0A2463;
-  display: grid;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: auto 0;
 }
 
-#banner-header h1 {
-  margin: auto;
+.banner-header h1 {
+  margin: 12px 0 0 15px;
   font-family: Nobile;
-  font-size: 52px;
+  font-size: 30px;
 }
+
+.banner-header .back-button {
+  margin: 15px -15px 0px 15px;
+  cursor: pointer;
+}
+
+.banner-header .hide {
+  display: none;
+}
+
 </style>

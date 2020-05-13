@@ -22,7 +22,7 @@
       v-model="passwordConfirmation"
       :error="passwordConfirmationError"
     />
-    <submit-button label="Submit" @submitted="handleSubmit" />
+    <app-button label="Submit" @clicked="handleSubmit" />
     <redirect-disclaimer messageText="Already have an account?" linkText="Log in here." href="/login" />
   </form>
 </div>

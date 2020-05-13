@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 import jwt_decode from 'jwt-decode';
 
-const parse = (token) => { jwt_decode(token); };
+const parse = (token) => jwt_decode(token);
 
 const isValid = (token) => {
   if (!token) return false;

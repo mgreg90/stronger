@@ -1,7 +1,7 @@
 import BannerHeader from '@/components/BannerHeader.vue';
 import FormHeader from '@/components/FormHeader.vue';
 import TextInput from '@/components/TextInput.vue';
-import SubmitButton from '@/components/SubmitButton.vue';
+import AppButton from '@/components/AppButton.vue';
 import RedirectDisclaimer from '@/components/RedirectDisclaimer.vue';
 import SessionsController from '@/api/v1/controllers/SessionsController';
 import appStorage from '@/utils/appStorage';
@@ -13,7 +13,7 @@ import formUtils from '../../utils/formUtils';
 const components = {
   BannerHeader,
   FormHeader,
-  SubmitButton,
+  AppButton,
   TextInput,
   RedirectDisclaimer,
 };

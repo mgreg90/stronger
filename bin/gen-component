@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+require 'fileutils'
+require 'pathname'
+
+require 'bundler/inline'
+
+gemfile do
+  source 'https://rubygems.org'
+  gem 'pry', require: true
+end
+
+name = ARGV[0]
+
+puts "No name given!" && exit if !name
+
+dir = Pathname.new(__dir__).join('..', 'client', 'src', 'components')
+
+FileUtils.mkdir_p(dir)
+FileUtils.touch(dir.join("#{name}.vue"))
+
+vue_template = <<~HTML
+  <template>
+  </template>
+
+  <style scoped>
+  </style>
+
+  <script>
+    import AppHeader from '@/components/#{name}.vue';
+
+    const props = {
+    };
+
+    export default {
+      name: '#{name}',
+      props,
+    };
+    </script>
+HTML
+
+File.open(dir.join("#{name}.vue"), 'w+') { |f| f.write(js_template) }

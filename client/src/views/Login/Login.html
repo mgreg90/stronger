@@ -15,7 +15,7 @@
       v-model="password"
       :error="passwordError"
     />
-    <submit-button label="Submit" @submitted="handleSubmit"/>
+    <app-button label="Submit" type="submit" @clicked="handleSubmit"/>
     <redirect-disclaimer messageText="Don't have an account?" linkText="Sign up here." href="/signup" />
   </form>
 </div>
