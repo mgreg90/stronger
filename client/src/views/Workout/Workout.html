@@ -1,10 +1,10 @@
 <div class="quick-workout">
   <app-header text="Quick Workout"/>
   <div class="quick-workout-container">
-    <div class="quick-workout-body"></div>
-    <!-- <floating-add-button /> -->
+    <div class="quick-workout-body" ></div>
+    <floating-button @clicked="goToAddExercise" />
     <div class="submit-button">
-      <app-button label="Complete Workout" type="wide-bottom"/>
+      <app-button label="Complete Workout" type="wide-bottom" />
     </div>
   </div>
 </div>

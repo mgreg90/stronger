@@ -26,9 +26,6 @@ vue_template = <<~HTML
   <template>
   </template>
 
-  <style scoped>
-  </style>
-
   <script>
 
     const props = {
@@ -46,7 +43,10 @@ vue_template = <<~HTML
       components,
       methods,
     };
-    </script>
+  </script>
+
+  <style scoped>
+  </style>
 HTML
 
 File.open(dir.join("#{name}.vue"), 'w+') { |f| f.write(vue_template) }

@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   get 'client_app/index'
+
   namespace :api do
     namespace :v1 do
       resources :users, only: %i(create)
       resources :sessions, only: %i(create)
+      resources :workout_executions, only: %i(create show)
     end
   end
   

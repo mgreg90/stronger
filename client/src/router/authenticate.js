@@ -1,5 +1,5 @@
 import appStorage from '@/utils/appStorage';
-import tokenService from '../utils/tokenService';
+import authService from '@/utils/authService';
 
 const applyAuthenticatedRoutes = (router) => {
   router.beforeEach((to, from, next) => {
@@ -9,7 +9,7 @@ const applyAuthenticatedRoutes = (router) => {
     }
 
     const token = appStorage.getToken();
-    const isValid = tokenService.isValid(token);
+    const isValid = authService.isValidToken(token);
 
     if (!isValid) {
       next({ path: '/login' });

@@ -1,11 +1,12 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import applyAuthenticatedRoutes from '@/router/authenticate';
-import Login from '@/views/Login/index.vue';
-import SignUp from '@/views/SignUp/index.vue';
+import ExerciseSearch from '@/views/ExerciseSearch/index.vue';
 import Home from '@/views/Home/index.vue';
+import Login from '@/views/Login/index.vue';
 import NotFound from '@/views/NotFound/index.vue';
-import QuickWorkout from '@/views/QuickWorkout/index.vue';
+import SignUp from '@/views/SignUp/index.vue';
+import Workout from '@/views/Workout/index.vue';
 
 Vue.use(VueRouter);
 
@@ -36,8 +37,12 @@ const routes = [
     component: Home,
   },
   {
-    path: '/quickWorkout/new',
-    component: QuickWorkout,
+    path: '/workouts/:id',
+    component: Workout,
+  },
+  {
+    path: '/workouts/:workout_id/exercises/new',
+    component: ExerciseSearch,
   },
   {
     path: '*',

@@ -10,10 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_18_040226) do
+ActiveRecord::Schema.define(version: 2020_05_13_032919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "exercise_executions", force: :cascade do |t|
+    t.bigint "workout_execution_id", null: false
+    t.bigint "exercise_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["exercise_id"], name: "index_exercise_executions_on_exercise_id"
+    t.index ["workout_execution_id"], name: "index_exercise_executions_on_workout_execution_id"
+  end
+
+  create_table "exercises", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "rails", force: :cascade do |t|
+    t.string "d"
+    t.string "model"
+    t.string "set_execution"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "set_executions", force: :cascade do |t|
+    t.integer "reps"
+    t.integer "weight"
+    t.bigint "exercise_execution_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["exercise_execution_id"], name: "index_set_executions_on_exercise_execution_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
@@ -23,4 +55,17 @@ ActiveRecord::Schema.define(version: 2020_04_18_040226) do
     t.index ["email"], name: "index_users_on_email"
   end
 
+  create_table "workout_executions", force: :cascade do |t|
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_workout_executions_on_user_id"
+  end
+
+  add_foreign_key "exercise_executions", "exercises"
+  add_foreign_key "exercise_executions", "workout_executions"
+  add_foreign_key "set_executions", "exercise_executions"
+  add_foreign_key "workout_executions", "users"
 end

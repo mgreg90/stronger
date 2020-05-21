@@ -3,6 +3,7 @@ class ApiController < ActionController::API
     VALIDATION_ERROR = 'VALIDATION_ERROR'
     NOT_FOUND_ERROR = 'NOT_FOUND_ERROR'
     INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR'
+    AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR'
   end
 
   before_action :snake_case_params!

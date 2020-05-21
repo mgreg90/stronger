@@ -1,5 +1,5 @@
 <template>
-  <div class="button-container" :class="{ [type]: true}">
+  <div class="app-button-container" :class="{ [type]: true}">
     <button :class="{ [type]: true }" type="submit" @click="handleClick">{{ label }}</button>
   </div>
 </template>
@@ -10,9 +10,6 @@ const props = {
   type: {
     type: String,
     default: 'submit',
-  },
-  onClick: {
-    type: Function,
   },
 };
 
@@ -31,20 +28,20 @@ export default {
 </script>
 
 <style scoped>
-  .button-container {
+  .app-button-container {
     display: flex;
     flex-direction: row-reverse;
   }
 
-  .button-container.submit {
+  .app-button-container.submit {
     padding: 0px 30px 30px 30px;
   }
 
-  .button-container.wide-bottom {
+  .app-button-container.wide-bottom {
         justify-self: flex-start;
   }
 
-  .button-container button {
+  .app-button-container button {
     color: #FFFAFF;
     background-color: #3E92CC;
     box-shadow: 1px 2px #D3D3D3; /* grey */
@@ -54,16 +51,16 @@ export default {
     padding: 20px;
   }
 
-  .button-container .submit {
+  .app-button-container .submit {
     width: 40%;
   }
 
-  .button-container .wide-floating {
+  .app-button-container .wide-floating {
     width: 100%;
-    margin: 0px 20px;
+    margin: 15px 20px;
   }
 
-  .button-container .wide-bottom {
+  .app-button-container .wide-bottom {
     border-radius: 0;
     width: 100%;
     border: 0;
