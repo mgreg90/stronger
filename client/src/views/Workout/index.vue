@@ -1,3 +1,3 @@
 <template src="./Workout.html"></template>
-<style scoped src="./Workout.css"></style>
+<style lang="scss" scoped src="./Workout.scss"></style>
 <script src="./Workout.js"></script>

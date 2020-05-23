@@ -20,12 +20,12 @@ dir = Pathname.new(__dir__).join('..', 'client', 'src', 'views', name)
 
 FileUtils.mkdir_p(dir)
 
-files = ['index.vue', "#{name}.html", "#{name}.css", "#{name}.js"]
+files = ['index.vue', "#{name}.html", "#{name}.scss", "#{name}.js"]
 files.each { |f| FileUtils.touch(dir.join(f)) }
 
 vue_template = <<~HTML
   <template src="./#{name}.html"></template>
-  <style scoped src="./#{name}.css"></style>
+  <style lang="scss" scoped src="./#{name}.scss"></style>
   <script src="./#{name}.js"></script>
 HTML
 

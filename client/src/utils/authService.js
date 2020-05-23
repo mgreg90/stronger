@@ -15,13 +15,13 @@ const isValidToken = (token) => {
   return true;
 };
 
-const authorizationHeader = () => `Bearer ${appStorage.getToken()}`
+const authorizationHeader = () => `Bearer ${appStorage.getToken()}`;
 
 const currentUser = () => {
   const token = appStorage.getToken();
   const parsedToken = parseToken(token);
   return { id: parsedToken.user_id, email: parsedToken.email };
-}
+};
 
 const authService = {
   isValidToken,

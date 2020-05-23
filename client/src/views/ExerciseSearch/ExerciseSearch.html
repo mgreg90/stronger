@@ -1,1 +1,23 @@
-<div><app-header />ExerciseSearch View</div>
+<div class="exerciseSearch-view">
+  <app-header text="Add Exercise"/>
+  <div class="search-container">
+    <text-input
+      name="search"
+      label="Search Exercises"
+      v-model="searchText"
+      @input="debouncedSearch"
+    />
+  </div>
+  <div class="search-results-container">
+    <ul class="search-results-list">
+      <li class="search-results-item"
+        v-for="result in searchResults"
+        :key="result.id"
+      >
+        <a @click="handleExerciseClicked(result)">
+          {{ result.name }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

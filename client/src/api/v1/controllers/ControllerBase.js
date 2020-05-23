@@ -50,8 +50,10 @@ const v1Get = async (path, payload) => {
 };
 
 const controllerBase = {
-  V1_USERS_PATH: 'v1/users',
+  V1_EXERCISE_EXECUTIONS_PATH: 'v1/exercise_executions',
+  V1_EXERCISES_SEARCH_PATH: 'v1/exercises/search',
   V1_SESSIONS_PATH: 'v1/sessions',
+  V1_USERS_PATH: 'v1/users',
   V1_WORKOUT_EXECUTIONS_PATH: 'v1/workout_executions',
 
   v1Get,

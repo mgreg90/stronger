@@ -58,7 +58,7 @@ const methods = {
       password: this.password,
     });
 
-    if (!apiUtils.requestSuccessful(response)) {
+    if (!apiUtils.isRequestSuccessful(response)) {
       apiUtils.handleErrors(this, response);
       return;
     }

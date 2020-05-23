@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2020_05_13_032919) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "exercise_executions", force: :cascade do |t|
@@ -24,10 +25,29 @@ ActiveRecord::Schema.define(version: 2020_05_13_032919) do
     t.index ["workout_execution_id"], name: "index_exercise_executions_on_workout_execution_id"
   end
 
-  create_table "exercises", force: :cascade do |t|
-    t.string "name"
+  create_table "exercise_exercise_types_join", force: :cascade do |t|
+    t.bigint "exercise_id"
+    t.bigint "exercise_type_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["exercise_id"], name: "index_exercise_exercise_types_join_on_exercise_id"
+    t.index ["exercise_type_id"], name: "index_exercise_exercise_types_join_on_exercise_type_id"
+  end
+
+  create_table "exercise_types", force: :cascade do |t|
+    t.string "name"
+    t.string "code", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["code"], name: "index_exercise_types_on_code"
+  end
+
+  create_table "exercises", force: :cascade do |t|
+    t.string "name"
+    t.bigint "exercise_types_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["exercise_types_id"], name: "index_exercises_on_exercise_types_id"
   end
 
   create_table "rails", force: :cascade do |t|

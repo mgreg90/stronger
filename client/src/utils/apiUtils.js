@@ -1,6 +1,6 @@
 import toasts from './toasts';
 
-const requestSuccessful = (resp) =>
+const isRequestSuccessful = (resp) =>
   resp && resp.status >= 200 && resp.status < 300;
 
 const handleErrors = (model, response) => {
@@ -20,7 +20,7 @@ const handleErrors = (model, response) => {
 };
 
 const apiUtils = {
-  requestSuccessful,
+  isRequestSuccessful,
   handleErrors,
 };
 

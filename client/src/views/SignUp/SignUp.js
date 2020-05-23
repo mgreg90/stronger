@@ -66,7 +66,7 @@ const methods = {
       passwordConfirmation: this.passwordConfirmation,
     });
 
-    if (!apiUtils.requestSuccessful(response)) {
+    if (!apiUtils.isRequestSuccessful(response)) {
       apiUtils.handleErrors(this, response);
       return;
     }

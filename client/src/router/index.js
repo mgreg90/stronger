@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import applyAuthenticatedRoutes from '@/router/authenticate';
+import ExerciseDetails from '@/views/ExerciseDetails/index.vue';
 import ExerciseSearch from '@/views/ExerciseSearch/index.vue';
 import Home from '@/views/Home/index.vue';
 import Login from '@/views/Login/index.vue';
@@ -41,8 +42,12 @@ const routes = [
     component: Workout,
   },
   {
-    path: '/workouts/:workout_id/exercises/new',
+    path: '/workouts/:workoutId/exercises/new',
     component: ExerciseSearch,
+  },
+  {
+    path: '/workouts/:workoutId/exercises/:exerciseExecutionId',
+    component: ExerciseDetails,
   },
   {
     path: '*',

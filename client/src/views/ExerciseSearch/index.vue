@@ -1,3 +1,3 @@
 <template src="./ExerciseSearch.html"></template>
-<style scoped src="./ExerciseSearch.css"></style>
+<style lang="scss" scoped src="./ExerciseSearch.scss"></style>
 <script src="./ExerciseSearch.js"></script>

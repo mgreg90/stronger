@@ -1,27 +1,33 @@
-<div>
+<div class="signUp-view">
   <banner-header />
   <form-header text="Sign Up" />
   <form>
-    <text-input
-      name="email"
-      label="Email"
-      v-model="email"
-      :error="emailError"
-    />
-    <text-input
-      name="password"
-      type="password"
-      label="Password"
-      v-model="password"
-      :error="passwordError"
-    />
-    <text-input
-      name="passwordConfirmation"
-      type="password"
-      label="Password Confirmation"
-      v-model="passwordConfirmation"
-      :error="passwordConfirmationError"
-    />
+    <div class="text-input-wrapper">
+      <text-input
+        name="email"
+        label="Email"
+        v-model="email"
+        :error="emailError"
+      />
+    </div>
+    <div class="text-input-wrapper">
+      <text-input
+        name="password"
+        type="password"
+        label="Password"
+        v-model="password"
+        :error="passwordError"
+      />
+    </div>
+    <div class="text-input-wrapper">
+      <text-input
+        name="passwordConfirmation"
+        type="password"
+        label="Password Confirmation"
+        v-model="passwordConfirmation"
+        :error="passwordConfirmationError"
+      />
+    </div>
     <app-button label="Submit" @clicked="handleSubmit" />
     <redirect-disclaimer messageText="Already have an account?" linkText="Log in here." href="/login" />
   </form>

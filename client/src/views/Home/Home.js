@@ -15,7 +15,7 @@ const data = () => ({
 const createWorkout = async () => {
   const response = await WorkoutExecutionsController.create({});
 
-  if (!apiUtils.requestSuccessful(response)) {
+  if (!apiUtils.isRequestSuccessful(response)) {
     apiUtils.handleErrors(this, response);
     return null;
   }

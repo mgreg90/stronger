@@ -1,0 +1,7 @@
+---
+- name: Push
+  code: PUSH
+- name: Pull
+  code: PULL
+- name: Core
+  code: CORE

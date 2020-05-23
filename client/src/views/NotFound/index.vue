@@ -1,3 +1,3 @@
 <template src="./NotFound.html"></template>
-<style scoped src="./NotFound.css"></style>
+<style lang="scss" scoped src="./NotFound.scss"></style>
 <script src="./NotFound.js"></script>
