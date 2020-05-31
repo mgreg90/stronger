@@ -44,10 +44,8 @@ ActiveRecord::Schema.define(version: 2020_05_13_032919) do
 
   create_table "exercises", force: :cascade do |t|
     t.string "name"
-    t.bigint "exercise_types_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["exercise_types_id"], name: "index_exercises_on_exercise_types_id"
   end
 
   create_table "rails", force: :cascade do |t|
@@ -59,8 +57,9 @@ ActiveRecord::Schema.define(version: 2020_05_13_032919) do
   end
 
   create_table "set_executions", force: :cascade do |t|
-    t.integer "reps"
-    t.integer "weight"
+    t.integer "reps", null: false
+    t.integer "weight", null: false
+    t.integer "status", null: false
     t.bigint "exercise_execution_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

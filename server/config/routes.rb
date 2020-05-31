@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
       resources :exercise_executions, only: %i(create show)
       resources :sessions, only: %i(create)
+      resources :set_executions, only: %i(create)
       resources :users, only: %i(create)
       resources :workout_executions, only: %i(create show)
     end

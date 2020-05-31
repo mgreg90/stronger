@@ -1,10 +1,11 @@
 <template>
-  <div class="textInput-component">
+  <div :class="{'textInput-component': true, inline}">
     <input
       :type="type"
-      :class="{error: hasError}"
+      :class="{error: hasError, inline}"
       :name="name"
       :placeholder="label"
+      :value="value"
       @input="$emit('input', $event.target.value)"
     >
     <p v-if="error !== 'NO_ERROR'">{{error}}</p>
@@ -15,7 +16,10 @@
 export default {
   name: 'TextInput',
   props: {
-    label: String,
+    label: {
+      type: String,
+      default: '',
+    },
     name: String,
     error: {
       type: String,
@@ -24,6 +28,14 @@ export default {
     type: {
       type: String,
       default: 'text',
+    },
+    inline: {
+      type: Boolean,
+      default: false,
+    },
+    value: {
+      type: [String, Number],
+      default: '',
     },
   },
   computed: {
@@ -35,11 +47,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.textInput-component.inline {
+  padding: 2px;
+
+  input {
+    padding: 0;
+    text-align: center;
+  }
+}
 .textInput-component {
-  display: grid;
   padding: 0px 30px 0px 30px;
 
   input {
+    width: calc(100% - 24px);
     margin: 0;
     font-family: Nobile;
     border: 1px solid  #3E92CC;

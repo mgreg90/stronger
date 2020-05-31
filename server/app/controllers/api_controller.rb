@@ -77,4 +77,10 @@ class ApiController < ActionController::API
   def query_params?
     request.headers['QUERY_STRING'].present?
   end
+
+  def params
+    pams = super
+    return pams['_collection'] if pams.has_key?('_collection')
+    pams
+  end
 end

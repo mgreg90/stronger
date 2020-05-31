@@ -1,21 +1,59 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import AppHeader from '@/components/AppHeader.vue';
+import AppButton from '@/components/AppButton.vue';
+import FloatingButton from '@/components/FloatingButton.vue';
+import SetListItem from '@/components/SetListItem.vue';
+import TextInput from '@/components/TextInput.vue';
 import ExerciseExecutionsController from '@/api/v1/controllers/ExerciseExecutionsController';
+import SetExecutionsController from '@/api/v1/controllers/SetExecutionsController';
 import apiUtils from '@/utils/apiUtils';
 import stringUtils from '@/utils/stringUtils';
 
 const components = {
   AppHeader,
+  TextInput,
+  SetListItem,
+  FloatingButton,
+  AppButton,
 };
+
+const buildSet = () => ({
+  weight: 0, reps: 1, key: uuidv4(),
+});
 
 const data = () => ({
   exercise: {
     type: Object,
     default: {},
   },
+  sets: [buildSet()],
 });
 
 const methods = {
+  addNewSet() {
+    this.$data.sets.push(buildSet());
+  },
+  async handleSubmit() {
+    const { exerciseExecutionId, workoutId } = this.$route.params;
+    const sets = this.$data.sets.map((set) => ({
+      weight: parseInt(set.weight, 10),
+      reps: parseInt(set.reps, 10),
+      exerciseExecutionId,
+      status: 'pending',
+    }));
 
+    const response = await SetExecutionsController.create(sets);
+
+    if (!apiUtils.isRequestSuccessful(response)) {
+      apiUtils.handleErrors(this, response);
+      return;
+    }
+
+    const route = `/workouts/${workoutId}`;
+
+    this.$router.push(route);
+  },
 };
 
 const computed = {

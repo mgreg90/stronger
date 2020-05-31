@@ -4,10 +4,15 @@
 * [kanban board](https://tree.taiga.io/project/mgreg90-workout-app/epics)
 * [mockups](https://www.figma.com/file/woAnBZf3PtHUiJZZOLU8SD/Workout-App)
 * [color palette](https://tree.taiga.io/project/mgreg90-workout-app/epics) - used [coolors.co](https://coolors.co/)
+* [icons](https://material.io/resources/icons/)
 
 ## Server
 
+## Start Dev Server
+just run `rails s`
+
 ### API Errors
+NOTE: TODO Update this!
 API Responses will have an error response with the following structure:
 ```json
 {
@@ -30,15 +35,5 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
+npm run dev
 ```

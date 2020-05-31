@@ -42,7 +42,7 @@ const routes = [
     component: Workout,
   },
   {
-    path: '/workouts/:workoutId/exercises/new',
+    path: '/workouts/:workoutId/exercises/search',
     component: ExerciseSearch,
   },
   {

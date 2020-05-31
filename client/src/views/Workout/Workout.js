@@ -28,7 +28,7 @@ const methods = {
   async goToAddExercise() {
     const { id } = this.$data.workout;
 
-    const route = `/workouts/${id}/exercises/new`;
+    const route = `/workouts/${id}/exercises/search`;
     this.$router.push(route);
   },
 };

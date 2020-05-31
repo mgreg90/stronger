@@ -1,1 +1,12 @@
-<div><app-header :text="trimmedExerciseName"/>ExerciseDetails View</div>
+<div class="exerciseDetails-view">
+  <app-header :text="trimmedExerciseName"/>
+  <div class="body">
+    <div class="content">
+      <set-list-item v-for="(set, index) in sets" :key="set.key" :set="set" :index="index"/>
+    </div>
+    <div class="footer">
+      <floating-button @clicked="addNewSet"/>
+      <app-button label="Submit" type="wide-bottom" @clicked="handleSubmit"/>
+    </div>
+  </div>
+</div>
