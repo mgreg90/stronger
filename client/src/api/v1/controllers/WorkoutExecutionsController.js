@@ -5,9 +5,9 @@ const WorkoutExecutionsController = {
     return controllerBase.v1Post(controllerBase.V1_WORKOUT_EXECUTIONS_PATH, payload);
   },
 
-  async get(id) {
+  async get(id, payload = {}) {
     const url = `${controllerBase.V1_WORKOUT_EXECUTIONS_PATH}/${id}`;
-    return controllerBase.v1Get(url);
+    return controllerBase.v1Get(url, payload);
   },
 };
 

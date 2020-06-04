@@ -15,7 +15,9 @@ const data = () => ({
 });
 
 const getWorkout = async (id) => {
-  const response = await WorkoutExecutionsController.get(id);
+  const response = await WorkoutExecutionsController.get(id, {
+    withSetExecutions: true,
+  });
 
   if (!apiUtils.isRequestSuccessful(response)) {
     apiUtils.handleErrors(this, response);
@@ -27,6 +29,7 @@ const getWorkout = async (id) => {
 const methods = {
   async goToAddExercise() {
     const { id } = this.$data.workout;
+    debugger;
 
     const route = `/workouts/${id}/exercises/search`;
     this.$router.push(route);
@@ -36,7 +39,7 @@ const methods = {
 async function mounted() {
   const { id } = this.$route.params;
   const workout = await getWorkout(id);
-
+  debugger;
   this.$set(this, 'workout', workout);
 }
 
