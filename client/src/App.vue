@@ -5,13 +5,17 @@
 </template>
 
 <style lang="scss">
-.toasted .toasted-primary, .toasted.toasted-primary {
-  justify-content: flex-start;
-}
+#app {
+  height: 100vh;
 
-.toasted p {
-  font-family: Nobile;
-  margin-top: 20px;
+  .toasted .toasted-primary, .toasted.toasted-primary {
+    justify-content: flex-start;
+  }
+
+  .toasted p {
+    font-family: Nobile;
+    margin-top: 20px;
+  }
 }
 </style>
 

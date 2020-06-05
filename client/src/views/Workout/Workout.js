@@ -3,6 +3,7 @@ import AppButton from '@/components/AppButton.vue';
 import FloatingButton from '@/components/FloatingButton.vue';
 import WorkoutExecutionsController from '@/api/v1/controllers/WorkoutExecutionsController';
 import apiUtils from '@/utils/apiUtils';
+import stringUtils from '@/utils/stringUtils';
 
 const components = {
   AppHeader,
@@ -15,7 +16,9 @@ const data = () => ({
 });
 
 const getWorkout = async (id) => {
-  const response = await WorkoutExecutionsController.get(id);
+  const response = await WorkoutExecutionsController.get(id, {
+    withSetExecutions: true,
+  });
 
   if (!apiUtils.isRequestSuccessful(response)) {
     apiUtils.handleErrors(this, response);
@@ -24,12 +27,21 @@ const getWorkout = async (id) => {
   return response.body;
 };
 
+const computed = {
+  exerciseExecutions() {
+    return this.workout?.exerciseExecutions || [];
+  },
+};
+
 const methods = {
   async goToAddExercise() {
     const { id } = this.$data.workout;
 
-    const route = `/workouts/${id}/exercises/new`;
+    const route = `/workouts/${id}/exercises/search`;
     this.$router.push(route);
+  },
+  ellipsis(str) {
+    return stringUtils.ellipsis(str, 34);
   },
 };
 
@@ -44,6 +56,7 @@ export default {
   name: 'Workout',
   components,
   data,
+  computed,
   methods,
   mounted,
 };

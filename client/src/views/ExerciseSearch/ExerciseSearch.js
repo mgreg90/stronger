@@ -12,10 +12,7 @@ const components = {
 };
 
 const data = () => ({
-  searchText: {
-    type: String,
-    default: '',
-  },
+  searchText: '',
   searchResults: [],
 });
 

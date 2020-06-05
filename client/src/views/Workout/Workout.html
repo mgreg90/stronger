@@ -1,7 +1,36 @@
-<div class="quick-workout">
+<div class="workout-view">
   <app-header text="Quick Workout"/>
-  <div class="quick-workout-container">
-    <div class="quick-workout-body" ></div>
+  <div class="container">
+    <div class="body" >
+      <div class="exercise-item-container" v-for="exerciseExecution in exerciseExecutions">
+        <div class="drag-icon">
+          <i class="material-icons md-18">drag_handle</i>
+        </div>
+        <div class="details">
+          <div class="name">
+            <p>{{ellipsis(exerciseExecution.exercise.name)}}</p>
+          </div>
+          <div class="description">
+            <p>Previously: 5/12/20</p>
+            <p>Sets: 3</p>
+            <p>Max Wt: 165</p>
+          </div>
+        </div>
+        <div class="sets">
+          <div class="set-item" v-for="setExecution in exerciseExecution.setExecutions">
+            <div class="set-item-weight detail">
+              <p>{{setExecution.weight}} lbs</p>
+            </div>
+            <div class="set-item-reps detail">
+              <p>{{setExecution.reps}} reps</p>
+            </div>
+            <div class="set-item-icon detail">
+              <i class="material-icons md-18">check_circle</i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <floating-button @clicked="goToAddExercise" />
     <div class="submit-button">
       <app-button label="Complete Workout" type="wide-bottom" />
