@@ -1,4 +1,4 @@
-class SetExecutionBlueprint < Blueprinter::Base
+class SetExecutionBlueprint < AppBlueprinterBase
   identifier :id
 
   view :normal do

@@ -1,4 +1,4 @@
-class WorkoutExecutionBlueprint < Blueprinter::Base
+class WorkoutExecutionBlueprint < AppBlueprinterBase
   identifier :id
 
   view :normal do
