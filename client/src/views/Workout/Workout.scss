@@ -13,6 +13,7 @@
         height: 100px;
         max-height: 100px;
         font-family: Nobile;
+        position: relative;
 
         .drag-icon {
           display: flex;
@@ -117,6 +118,7 @@
         position: absolute;
         left: 5%;
         width: 90%;
+        bottom: 0;
         background: #3E92CC;
         height: 1px;
       }
