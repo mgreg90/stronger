@@ -7,6 +7,12 @@
     .body {
       flex: 1 0 auto;
 
+      .no-exercises-msg {
+        font-family: Nobile;
+        text-align: center;
+        font-style: italic;
+      }
+
       .exercise-item-container {
         display: grid;
         grid-template-columns: 60px 140px auto;
@@ -78,16 +84,24 @@
               display: flex;
               justify-content: center;
               align-items: center;
+
+              .set-item-completed {
+                color: #70EA6F; //green
+              }
+
+              .set-item-pending {
+                color: #FAD74B;
+              }
             }
 
             .set-item-weight {
-              height: 30%;
+              height: 25%;
             }
             .set-item-reps {
-              height: 30%;
+              height: 25%;
             }
             .set-item-icon {
-              height: 40%;
+              height: 50%;
               color: #3E92CC;
             }
           }

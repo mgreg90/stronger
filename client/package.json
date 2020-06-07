@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "vue-cli-service build --watch --dest ../server/public",
+    "local": "vue-cli-service build --mode local-dev --watch --dest ../server/public",
+    "dev": "vue-cli-service build --mode dev --watch --dest ../server/public",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
@@ -17,6 +18,7 @@
     "normalize.css": "^8.0.1",
     "uuid": "^8.1.0",
     "vue": "^2.6.11",
+    "vue-directive-long-press": "^1.1.0",
     "vue-router": "^3.1.6",
     "vue-toasted": "^1.1.28"
   },

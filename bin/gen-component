@@ -27,22 +27,21 @@ vue_template = <<~HTML
   </template>
 
   <script>
+  const props = {
+  };
 
-    const props = {
-    };
+  const components = {
+  };
 
-    const components = {
-    };
+  const methods = {
+  };
 
-    const methods = {
-    };
-
-    export default {
-      name: '#{name}',
-      props,
-      components,
-      methods,
-    };
+  export default {
+    name: '#{name}',
+    props,
+    components,
+    methods,
+  };
   </script>
 
   <style lang="scss" scoped>

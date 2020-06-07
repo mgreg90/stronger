@@ -4,7 +4,15 @@ class Api::V1::SetExecutionsController < ApiController
     SetExecution.transaction do
       set_executions = SetExecution.create!(create_params)
     end
+
     render json: set_executions, status: :created
+  end
+
+  def update
+    set_execution = SetExecution.find(params[:id])
+    set_execution.update!(update_params)
+
+    render json: SetExecutionBlueprint.render(set_execution, view: :normal), status: :ok
   end
 
   private
@@ -13,5 +21,9 @@ class Api::V1::SetExecutionsController < ApiController
     Array.wrap(params).map do |param|
       param.permit :weight, :reps, :exercise_execution_id, :status
     end
+  end
+
+  def update_params
+    params.permit(:status)
   end
 end

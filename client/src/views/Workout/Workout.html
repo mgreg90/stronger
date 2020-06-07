@@ -2,7 +2,16 @@
   <app-header text="Quick Workout"/>
   <div class="container">
     <div class="body" >
-      <div class="exercise-item-container" v-for="exerciseExecution in exerciseExecutions">
+      <div class="no-exercises-msg" v-if="!exerciseExecutions.length">
+        <p>
+          Press ➕ to add exercises
+        </p>
+      </div>
+      <div
+        class="exercise-item-container"
+        v-else
+        v-for="(exerciseExecution, exerciseIndex) in exerciseExecutions"
+      >
         <div class="drag-icon">
           <i class="material-icons md-18">drag_handle</i>
         </div>
@@ -17,7 +26,14 @@
           </div>
         </div>
         <div class="sets">
-          <div class="set-item" v-for="setExecution in exerciseExecution.setExecutions">
+          <div
+            class="set-item"
+            v-for="(setExecution, setIndex) in exerciseExecution.setExecutions"
+            @click="handleSetClick(exerciseIndex, setIndex, setExecution)"
+            v-long-press="2000"
+            @long-press-start="handleSetLongClick(setExecution)"
+            :key="setExecution.id"
+          >
             <div class="set-item-weight detail">
               <p>{{setExecution.weight}} lbs</p>
             </div>
@@ -25,15 +41,21 @@
               <p>{{setExecution.reps}} reps</p>
             </div>
             <div class="set-item-icon detail">
-              <i class="material-icons md-18">check_circle</i>
+              <i v-if="setExecution.status === 'completed'" class="material-icons md-18 set-item-completed">check_circle</i>
+              <i v-else-if="isNext(setExecution, exerciseIndex)" class="material-icons md-18 set-item-next">play_circle_outline</i>
+              <i v-else-if="setExecution.status === 'pending'" class="material-icons md-18 set-item-pending">pending</i>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <floating-button @clicked="goToAddExercise" />
-    <div class="submit-button">
-      <app-button label="Complete Workout" type="wide-bottom" />
+    <floating-button @clicked="goToAddExercise" v-if="!workout.finishedAt" />
+    <div v-if="!workout.finishedAt" class="submit-button">
+      <app-button
+        label="Complete Workout"
+        type="wide-bottom"
+        @clicked="handleWorkoutCompleted"
+      />
     </div>
   </div>
 </div>

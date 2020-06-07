@@ -11,6 +11,11 @@ const SetExecutionsController = {
     return controllerBase.v1Get(url, queryParams);
   },
 
+  async update(id, payload) {
+    const url = `${controllerBase.V1_SET_EXECUTIONS_PATH}/${id}`;
+    return controllerBase.v1Patch(url, payload);
+  },
+
 };
 
 export default SetExecutionsController;
