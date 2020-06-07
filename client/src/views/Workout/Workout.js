@@ -1,16 +1,15 @@
 import AppHeader from '@/components/AppHeader.vue';
 import AppButton from '@/components/AppButton.vue';
 import FloatingButton from '@/components/FloatingButton.vue';
-import ExerciseExecutionItem from '@/components/ExerciseExecutionItem.vue';
 import WorkoutExecutionsController from '@/api/v1/controllers/WorkoutExecutionsController';
 import SetExecutionsController from '@/api/v1/controllers/SetExecutionsController';
 import apiUtils from '@/utils/apiUtils';
+import stringUtils from '@/utils/stringUtils';
 
 const components = {
   AppHeader,
   AppButton,
   FloatingButton,
-  ExerciseExecutionItem,
 };
 
 const data = () => ({
@@ -102,6 +101,20 @@ const methods = {
     if (isWorkoutFinished) {
       this.$router.push('/home');
     }
+  },
+
+  ellipsis(str) {
+    return stringUtils.ellipsis(str, 34);
+  },
+
+  isNext(setExecution, exerciseIndex) {
+    const exercise = this.workout.exerciseExecutions[exerciseIndex];
+    if (!exercise) return false;
+
+    const firstPendingSet = exercise.setExecutions.find((set) =>
+      set.status === 'pending');
+
+    return setExecution.id === firstPendingSet.id;
   },
 };
 

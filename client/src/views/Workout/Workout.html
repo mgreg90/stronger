@@ -7,14 +7,47 @@
           Press ➕ to add exercises
         </p>
       </div>
-      <exercise-execution-item
+      <div
+        class="exercise-item-container"
         v-else
         v-for="(exerciseExecution, exerciseIndex) in exerciseExecutions"
-        :exerciseExecutions="exerciseExecutions"
-        :exerciseExecution="exerciseExecution"
-        :exerciseIndex="exerciseIndex"
-        :key="exerciseExecution.id"
-      />
+      >
+        <div class="drag-icon">
+          <i class="material-icons md-18">drag_handle</i>
+        </div>
+        <div class="details">
+          <div class="name">
+            <p>{{ellipsis(exerciseExecution.exercise.name)}}</p>
+          </div>
+          <div class="description">
+            <p>Previously: 5/12/20</p>
+            <p>Sets: 3</p>
+            <p>Max Wt: 165</p>
+          </div>
+        </div>
+        <div class="sets">
+          <div
+            class="set-item"
+            v-for="(setExecution, setIndex) in exerciseExecution.setExecutions"
+            @click="handleSetClick(exerciseIndex, setIndex, setExecution)"
+            v-long-press="2000"
+            @long-press-start="handleSetLongClick(setExecution)"
+            :key="setExecution.id"
+          >
+            <div class="set-item-weight detail">
+              <p>{{setExecution.weight}} lbs</p>
+            </div>
+            <div class="set-item-reps detail">
+              <p>{{setExecution.reps}} reps</p>
+            </div>
+            <div class="set-item-icon detail">
+              <i v-if="setExecution.status === 'completed'" class="material-icons md-18 set-item-completed">check_circle</i>
+              <i v-else-if="isNext(setExecution, exerciseIndex)" class="material-icons md-18 set-item-next">play_circle_outline</i>
+              <i v-else-if="setExecution.status === 'pending'" class="material-icons md-18 set-item-pending">pending</i>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <floating-button @clicked="goToAddExercise" v-if="!workout.finishedAt" />
     <div v-if="!workout.finishedAt" class="submit-button">
