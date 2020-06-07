@@ -1,6 +1,7 @@
 import authService from '@/utils/authService';
+import env from '@/config/env';
 
-const BASE_API_URL = 'http://localhost:3000/api/';
+const BASE_API_URL = env.strongerApiUrl;
 
 const standardHeaders = () => {
   const authorization = authService.authorizationHeader();
@@ -14,11 +15,24 @@ const standardHeaders = () => {
 
 const tryParseBody = async (response) => {
   try {
-    const res = await response.json();
-    return res;
+    return await response.json();
   } catch {
     return {};
   }
+};
+
+const v1Get = async (path, payload) => {
+  const headers = standardHeaders();
+  const queryString = new URLSearchParams(payload);
+  const response = await fetch(
+    `${BASE_API_URL}${path}?${queryString}`, {
+      method: 'GET',
+      headers,
+    },
+  );
+
+  const body = await tryParseBody(response);
+  return { status: response.status, body };
 };
 
 const v1Post = async (path, payload) => {
@@ -35,13 +49,13 @@ const v1Post = async (path, payload) => {
   return { status: response.status, body };
 };
 
-const v1Get = async (path, payload) => {
+const v1Patch = async (path, payload) => {
   const headers = standardHeaders();
-  const queryString = new URLSearchParams(payload);
   const response = await fetch(
-    `${BASE_API_URL}${path}?${queryString}`, {
-      method: 'GET',
+    `${BASE_API_URL}${path}`, {
+      method: 'PATCH',
       headers,
+      body: JSON.stringify(payload),
     },
   );
 
@@ -59,6 +73,7 @@ const controllerBase = {
 
   v1Get,
   v1Post,
+  v1Patch,
 
   standardHeaders,
 };
