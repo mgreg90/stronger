@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_032919) do
     t.integer "reps", null: false
     t.integer "weight", null: false
     t.integer "status", null: false
+    t.integer "order", null: false
     t.bigint "exercise_execution_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

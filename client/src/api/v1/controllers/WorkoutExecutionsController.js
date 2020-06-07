@@ -9,6 +9,12 @@ const WorkoutExecutionsController = {
     const url = `${controllerBase.V1_WORKOUT_EXECUTIONS_PATH}/${id}`;
     return controllerBase.v1Get(url, payload);
   },
+
+  async update(id, payload) {
+    const url = `${controllerBase.V1_WORKOUT_EXECUTIONS_PATH}/${id}`;
+    return controllerBase.v1Patch(url, payload);
+  },
+
 };
 
 export default WorkoutExecutionsController;

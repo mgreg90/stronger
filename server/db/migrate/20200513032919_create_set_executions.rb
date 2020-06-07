@@ -4,6 +4,7 @@ class CreateSetExecutions < ActiveRecord::Migration[6.0]
       t.integer :reps, null: false
       t.integer :weight, null: false
       t.integer :status, null: false
+      t.integer :order, null: false
       t.references :exercise_execution, null: false, foreign_key: true
 
       t.timestamps

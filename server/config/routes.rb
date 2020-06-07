@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resources :sessions, only: %i(create)
       resources :set_executions, only: %i(create update)
       resources :users, only: %i(create)
-      resources :workout_executions, only: %i(create show)
+      resources :workout_executions, only: %i(create show update)
     end
   end
   
