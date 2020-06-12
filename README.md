@@ -9,7 +9,9 @@
 ## Server
 
 ## Start Dev Server
-just run `rails s`
+```
+rails s
+```
 
 ### API Errors
 NOTE: TODO Update this!
@@ -33,7 +35,12 @@ API Responses will have an error response with the following structure:
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compiles and hot-reloads for local development
+```
+npm run local
+```
+
+### Compiles and hot-reloads for use with ngrok
 ```
 npm run dev
 ```
