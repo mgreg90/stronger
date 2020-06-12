@@ -6,7 +6,7 @@
     "local": "vue-cli-service build --mode local-dev --watch --dest ../server/public",
     "dev": "vue-cli-service build --mode dev --watch --dest ../server/public",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --mode production --dest ../server/public",
     "lint": "vue-cli-service lint",
     "test": "jest"
   },

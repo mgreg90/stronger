@@ -44,3 +44,18 @@ npm run local
 ```
 npm run dev
 ```
+
+## Production Deployment
+
+### Run Dockerfile
+
+```
+docker build -t workout-app
+docker run -p 3000:80 workout-app
+```
+
+### Single line deploy
+```
+  bin/prod-deploy
+```
+

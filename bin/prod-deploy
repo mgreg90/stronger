@@ -1,0 +1,43 @@
+#!/usr/bin/env sh
+
+# Get application credentials
+bindir="$(realpath ${0%/*})"
+creds=$("$bindir/prod-creds")
+
+container_registry_url=$(echo $creds | jp azure.container_registry.url | tr -d '"')
+container_registry_username=$(echo $creds | jp azure.container_registry.username | tr -d '"')
+container_registry_password=$(echo $creds | jp azure.container_registry.password | tr -d '"')
+
+puts() {
+  echo "==========="
+  echo $1
+  echo "==========="
+}
+
+# build client application
+puts 'Building client application...'
+cd client && npm run build && cd ..
+
+# build docker container
+puts 'Building docker container...'
+docker build --tag workout-app . --no-cache
+
+# remove old docker image
+puts 'Removing old docker image...'
+docker rmi "$container_registry_url/workout-app:v1.0.0"
+
+# login to docker
+puts 'Logging in to docker container registry..'
+docker login "$container_registry_url" --username "$container_registry_username" --password "$container_registry_password"
+
+# tag docker image
+puts 'Tagging docker image'
+docker tag workout-app "$container_registry_url/workout-app:v1.0.0"
+
+# push docker image
+puts 'Pushing docker image'
+docker push "$container_registry_url/workout-app:v1.0.0"
+
+# restart web app in azure
+puts 'Restarting webapp in azure'
+az webapp restart --name stronger-web-app --resource-group StrongerApp

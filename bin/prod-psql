@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+bindir="$(realpath ${0%/*})"
+creds=$("$bindir/prod-creds")
+
+dbPassword=$(echo $creds | jp db.password | tr -d '"')
+dbUsername=$(echo $creds | jp db.username | tr -d '"')
+dbHost=$(echo $creds | jp db.host | tr -d '"')
+
+PGPASSWORD=$dbPassword psql -U $dbUsername -h $dbHost postgres

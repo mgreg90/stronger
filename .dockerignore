@@ -1,0 +1,10 @@
+/client
+/bin
+/.notes
+/.bundle
+README.md
+color_palette.pdf
+.trello
+.TODO
+/server/log
+/server/tmp

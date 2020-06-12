@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   # Redirect all routes to client app
   # Exclude active_storage routes so that images load correctly.
   # https://github.com/rails/rails/issues/31228
-  get '*path', to: 'client_app#index', constraints: lambda { |req|
+  get '/(*path)', to: 'client_app#index', constraints: lambda { |req|
     req.path.exclude? 'rails/active_storage'
   }
 end

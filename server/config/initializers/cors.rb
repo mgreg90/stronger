@@ -6,10 +6,11 @@
 # Read more: https://github.com/cyu/rack-cors
 
 creds = Rails.application.credentials
+allowed_origins = [creds[:origin], creds[:ngrok_url]].compact
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins creds[:origin], creds[:ngrok_url]
+    origins *allowed_origins
 
     resource '*',
       headers: :any,

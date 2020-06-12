@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+ENV['RAILS_ENV'] = 'production'
+
+require File.expand_path('../../server/config/environment', __FILE__)
+
+puts Rails.application.credentials.config.to_json
