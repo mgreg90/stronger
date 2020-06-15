@@ -14,10 +14,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    component: SignUp,
-    meta: {
-      public: true,
-    },
+    component: Home,
   },
   {
     path: '/signup',
