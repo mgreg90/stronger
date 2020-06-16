@@ -2,6 +2,7 @@ import AppHeader from '@/components/AppHeader.vue';
 import AppButton from '@/components/AppButton.vue';
 import FloatingButton from '@/components/FloatingButton.vue';
 import Modal from '@/components/Modal.vue';
+import TextInput from '@/components/TextInput.vue';
 import WorkoutExecutionsController from '@/api/v1/controllers/WorkoutExecutionsController';
 import SetExecutionsController from '@/api/v1/controllers/SetExecutionsController';
 import apiUtils from '@/utils/apiUtils';
@@ -12,12 +13,14 @@ const components = {
   AppButton,
   FloatingButton,
   Modal,
+  TextInput,
 };
 
 const data = () => ({
   workout: {
     exerciseExecutions: [],
   },
+  editingSet: null,
 });
 
 const getWorkout = async (id) => {
@@ -95,8 +98,8 @@ const methods = {
   },
 
   async handleSetLongClick(item) {
+    this.$set(this, 'editingSet', item);
     this.$refs.setExecutionModal.openModal();
-    console.log('long click', item.id);
   },
 
   async handleWorkoutCompleted() {

@@ -6,10 +6,19 @@
         Edit Set
       </template>
       <template v-slot:body>
-        Form Goes Here
+        <div class="modal-body">
+          <div class="modal-body-item">
+            <p>Weight</p>
+            <text-input inline v-model="editingSet.weight" type="number"/>
+          </div>
+          <div class="modal-body-item">
+            <p>Reps</p>
+            <text-input inline v-model="editingSet.reps" type="number"/>
+          </div>
+        </div>
       </template>
       <template v-slot:footer>
-        Buttons Go Here
+        <app-button type="wide-floating" label="Save" />
       </template>
     </modal>
     <div class="body" >

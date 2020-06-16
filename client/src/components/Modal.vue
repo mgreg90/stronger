@@ -6,14 +6,9 @@
       <div class="modal__dialog">
         <div class="modal__header">
           <slot name="header"/>
-          <button type="button" class="modal__close" @click="closeModal()">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512">
-              <path
-                fill="currentColor"
-                d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
-              ></path>
-            </svg>
-          </button>
+          <div class="modal__close-wrapper">
+            <i class="modal__close material-icons md-36" @click="closeModal()">close</i>
+          </div>
         </div>
 
         <div class="modal__body">
@@ -34,12 +29,12 @@ const data = () => ({ show: false });
 const methods = {
   closeModal() {
     this.show = false;
-    document.querySelector("body").classList.remove("overflow-hidden");
+    document.querySelector('body').classList.remove('overflow-hidden');
   },
   openModal() {
     this.show = true;
-    document.querySelector("body").classList.add("overflow-hidden");
-  }
+    document.querySelector('body').classList.add('overflow-hidden');
+  },
 };
 
 export default {
@@ -59,6 +54,8 @@ export default {
   bottom: 0;
   left: 0;
   z-index: 9;
+  font-family: $default-font;
+
   &__backdrop {
     background-color: rgba(0, 0, 0, 0.3);
     position: fixed;
@@ -68,8 +65,9 @@ export default {
     left: 0;
     z-index: 1;
   }
+
   &__dialog {
-    background-color: #ffffff;
+    background: white;
     position: relative;
     width: 600px;
     margin: 50px auto;
@@ -81,16 +79,30 @@ export default {
       width: 90%;
     }
   }
-  &__close {
-    width: 30px;
-    height: 30px;
+
+  // &__close {
+  //   margin-top: 2px;
+  // }
+
+  &__close-wrapper {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    color: $red;
+    border: 0;
+    background: white;
+    border-radius: 100%;
+    height: 24px;
+    border: $red 2px solid;
   }
+
   &__header {
     padding: 20px 20px 10px;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
   }
+
   &__body {
     padding: 10px 20px 10px;
     overflow: auto;
@@ -98,14 +110,17 @@ export default {
     flex-direction: column;
     align-items: stretch;
   }
+
   &__footer {
     padding: 10px 20px 20px;
   }
 }
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.2s;
 }
+
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
