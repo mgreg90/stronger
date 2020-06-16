@@ -27,7 +27,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .app-button-container {
     display: flex;
     flex-direction: row-reverse;
@@ -42,11 +42,11 @@ export default {
   }
 
   .app-button-container button {
-    color: #FFFAFF;
-    background-color: #3E92CC;
-    box-shadow: 1px 2px #D3D3D3; /* grey */
-    font-family: Nobile;
-    border: 1px solid #FFFAFF;
+    color: $white;
+    background-color: $light-blue;
+    box-shadow: 1px 2px $grey; /* grey */
+    font-family: $default-font;
+    border: 1px solid $white;
     border-radius: 10px;
     padding: 20px;
   }

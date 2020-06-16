@@ -15,18 +15,18 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .redirect-disclaimer {
     position: absolute;
     bottom: 0;
     padding: 0px 30px;
-    font-family: Nobile;
+    font-family: $default-font;
     font-size: 12px;
     margin-bottom: 15px;
   }
 
   .redirect-disclaimer a {
     text-decoration: none;
-    color: #3E92CC;
+    color: $light-blue;
   }
 </style>

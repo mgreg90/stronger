@@ -29,7 +29,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .floating-button-container {
     display: flex;
     flex-direction: row;
@@ -37,7 +37,7 @@ export default {
   }
 
   .floating-button-container i {
-    color: #fffaff;
+    color: $white;
     font-size: 40px;
   }
 

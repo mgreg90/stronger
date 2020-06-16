@@ -36,11 +36,11 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 .banner-header {
   height: 60px;
-  color: #FFFAFF;
+  color: $white;
   background-color: #0A2463;
   display: flex;
   flex-direction: row;
@@ -50,7 +50,7 @@ export default {
 
 .banner-header h1 {
   margin: 12px 0 0 15px;
-  font-family: Nobile;
+  font-family: $default-font;
   font-size: 30px;
 }
 

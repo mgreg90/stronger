@@ -1,6 +1,17 @@
 <div class="workout-view">
   <app-header text="Quick Workout"/>
   <div class="container">
+    <modal ref="setExecutionModal">
+      <template v-slot:header>
+        Edit Set
+      </template>
+      <template v-slot:body>
+        Form Goes Here
+      </template>
+      <template v-slot:footer>
+        Buttons Go Here
+      </template>
+    </modal>
     <div class="body" >
       <div class="no-exercises-msg" v-if="!exerciseExecutions.length">
         <p>
@@ -30,15 +41,15 @@
             class="set-item"
             v-for="(setExecution, setIndex) in exerciseExecution.setExecutions"
             @click="handleSetClick(exerciseIndex, setIndex, setExecution)"
-            v-long-press="2000"
+            v-long-press="1500"
             @long-press-start="handleSetLongClick(setExecution)"
             :key="setExecution.id"
           >
             <div class="set-item-weight detail">
-              <p>{{setExecution.weight}} lbs</p>
+              <p class="unselectable">{{setExecution.weight}} lbs</p>
             </div>
             <div class="set-item-reps detail">
-              <p>{{setExecution.reps}} reps</p>
+              <p class="unselectable">{{setExecution.reps}} reps</p>
             </div>
             <div class="set-item-icon detail">
               <i v-if="setExecution.status === 'completed'" class="material-icons md-18 set-item-completed">check_circle</i>

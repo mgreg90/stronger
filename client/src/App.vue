@@ -13,7 +13,7 @@
   }
 
   .toasted p {
-    font-family: Nobile;
+    font-family: $default-font;
     margin-top: 20px;
   }
 }

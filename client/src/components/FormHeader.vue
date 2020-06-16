@@ -13,13 +13,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   #container {
     display: grid;
   }
 
   #form-header {
     margin: 30px auto;
-    font-family: Nobile;
+    font-family: $default-font;
   }
 </style>

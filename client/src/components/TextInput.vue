@@ -61,9 +61,9 @@ export default {
   input {
     width: calc(100% - 24px);
     margin: 0;
-    font-family: Nobile;
-    border: 1px solid  #3E92CC;
-    color: #3E92CC;
+    font-family: $default-font;
+    border: 1px solid  $light-blue;
+    color: $light-blue;
     border-radius: 10px;
     padding: 12px;
     height: 30px;
@@ -74,14 +74,14 @@ export default {
   }
 
   input::placeholder {
-    color: #D3D3D3;
+    color: $grey;
   }
 
   p {
     min-height: 18px;
     margin: 10px 0 0px 12px;
     color: #d8315b;
-    font-family: Nobile;
+    font-family: $default-font;
     font-size: 12px;
   }
 }

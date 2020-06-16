@@ -64,8 +64,8 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-family: Nobile;
-  border-bottom: 1px solid #3E92CC;
+  font-family: $default-font;
+  border-bottom: 1px solid $light-blue;
   margin: 0 20px;
   padding: 5px 0;
 
