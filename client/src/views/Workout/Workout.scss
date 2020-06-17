@@ -105,11 +105,11 @@
               align-items: center;
 
               .set-item-completed {
-                color: #70EA6F; //green
+                color: $green;
               }
 
               .set-item-pending {
-                color: #FAD74B;
+                color: $yellow;
               }
             }
 
@@ -142,6 +142,22 @@
             right: 0;
             background: $light-blue;
             width: 1px;
+          }
+
+          .add-set-text {
+            height: 35%;
+            display: flex;
+            justify-content: center;
+            top: 25%;
+            position: relative;
+          }
+
+          .add-set-button {
+            height: 25%;
+            display: flex;
+            justify-content: center;
+            top: 25%;
+            position: relative;
           }
         }
       }

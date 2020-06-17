@@ -8,6 +8,8 @@ import SetExecutionsController from '@/api/v1/controllers/SetExecutionsControlle
 import apiUtils from '@/utils/apiUtils';
 import stringUtils from '@/utils/stringUtils';
 
+import cloneDeep from 'lodash.clonedeep';
+
 const components = {
   AppHeader,
   AppButton,
@@ -21,6 +23,7 @@ const data = () => ({
     exerciseExecutions: [],
   },
   editingSet: null,
+  isModalEdit: false,
 });
 
 const getWorkout = async (id) => {
@@ -39,6 +42,17 @@ const computed = {
   exerciseExecutions() {
     return this.workout?.exerciseExecutions || [];
   },
+  modalHeader() {
+    return this.isModalEdit ? 'Edit Set' : 'Add Set';
+  },
+};
+
+const handleErrors = (self, response) => {
+  if (!apiUtils.isRequestSuccessful(response)) {
+    apiUtils.handleErrors(self, response);
+    return false;
+  }
+  return true;
 };
 
 const tryCompleteSet = async (self, exerciseIndex, setIndex, item) => {
@@ -46,10 +60,8 @@ const tryCompleteSet = async (self, exerciseIndex, setIndex, item) => {
     status: 'completed',
   });
 
-  if (!apiUtils.isRequestSuccessful(response)) {
-    apiUtils.handleErrors(self, response);
-    return false;
-  }
+  const isSuccessful = handleErrors(self, response, false);
+  if (!isSuccessful) return false;
 
   self.$set(
     self.workout.exerciseExecutions[exerciseIndex].setExecutions,
@@ -64,10 +76,8 @@ const tryUpdateWorkout = async (self, field, value) => {
     [field]: value,
   });
 
-  if (!apiUtils.isRequestSuccessful(response)) {
-    apiUtils.handleErrors(self, response);
-    return false;
-  }
+  const isSuccessful = handleErrors(self, response, false);
+  if (!isSuccessful) return false;
 
   self.$set(
     self.workout,
@@ -77,11 +87,69 @@ const tryUpdateWorkout = async (self, field, value) => {
   return true;
 };
 
+const tryUpdateSet = async (self) => {
+  const response = await SetExecutionsController.update(self.editingSet.id, {
+    weight: self.editingSet.weight,
+    reps: self.editingSet.reps,
+  });
+
+  const isSuccessful = handleErrors(self, response, false);
+  if (!isSuccessful) return null;
+
+  return response.body;
+};
+
+const tryCreateSet = async (self) => {
+  const response = await SetExecutionsController.create({
+    ...self.editingSet,
+    status: 'pending',
+  });
+
+  const isSuccessful = handleErrors(self, response, false);
+  if (!isSuccessful) return null;
+
+  return response.body[0];
+};
+
+const findSetIndices = (self, id) => {
+  // eslint-disable-next-line no-restricted-syntax
+  for (const [eeIdx, ee] of self.exerciseExecutions.entries()) {
+    const seIdx = ee.setExecutions.findIndex((se) => se.id === id);
+    if (seIdx !== -1) return [eeIdx, seIdx];
+  }
+  return [];
+};
+
 const tryStartWorkout = async (self) =>
   tryUpdateWorkout(self, 'startedAt', new Date());
 
 const tryFinishWorkout = async (self) =>
   tryUpdateWorkout(self, 'finishedAt', new Date());
+
+const updateSet = async (self) => {
+  const updatedSet = await tryUpdateSet(self);
+  if (!updatedSet) return;
+
+  const [exerciseIndex, setIndex] = findSetIndices(self, self.editingSet.id);
+
+  const exerciseExecution = self.workout.exerciseExecutions[exerciseIndex];
+  exerciseExecution.setExecutions[setIndex] = updatedSet;
+
+  self.$set(self.workout.exerciseExecutions, exerciseIndex, exerciseExecution);
+};
+
+const createSet = async (self) => {
+  const createdSet = await tryCreateSet(self);
+  if (!createdSet) return;
+
+  const { exerciseExecutionId } = self.editingSet;
+  const exerciseIndex = self.workout.exerciseExecutions.findIndex((ee) =>
+    ee.id === exerciseExecutionId);
+  const exerciseExecution = self.workout.exerciseExecutions[exerciseIndex];
+
+  exerciseExecution.setExecutions.push(createdSet);
+  self.$set(self.workout.exerciseExecutions, exerciseIndex, exerciseExecution);
+};
 
 const methods = {
   async goToAddExercise() {
@@ -97,8 +165,31 @@ const methods = {
     if (!this.workout.startedAt) await tryStartWorkout(this);
   },
 
-  async handleSetLongClick(item) {
-    this.$set(this, 'editingSet', item);
+  async handleSaveEditingSetClick() {
+    if (this.editingSet.id) {
+      await updateSet(this);
+    } else {
+      await createSet(this);
+    }
+
+    this.$refs.setExecutionModal.closeModal();
+  },
+
+  handleSetLongClick(item) {
+    this.$set(this, 'editingSet', cloneDeep(item));
+    this.$set(this, 'isModalEdit', true);
+    this.$refs.setExecutionModal.openModal();
+  },
+
+  handleAddSetClick(exerciseExecution) {
+    const lastSet = exerciseExecution.setExecutions[exerciseExecution.setExecutions.length - 1];
+
+    this.$set(this, 'editingSet', {
+      reps: lastSet?.reps || 0,
+      weight: lastSet?.weight || 0,
+      exerciseExecutionId: exerciseExecution.id,
+    });
+    this.$set(this, 'isModalEdit', false);
     this.$refs.setExecutionModal.openModal();
   },
 
@@ -107,6 +198,10 @@ const methods = {
     if (isWorkoutFinished) {
       this.$router.push('/home');
     }
+  },
+
+  handleModalClose() {
+    this.$set(this, 'editingSet', null);
   },
 
   ellipsis(str) {

@@ -29,6 +29,7 @@ const data = () => ({ show: false });
 const methods = {
   closeModal() {
     this.show = false;
+    this.$emit('onClose');
     document.querySelector('body').classList.remove('overflow-hidden');
   },
   openModal() {
@@ -80,10 +81,6 @@ export default {
     }
   }
 
-  // &__close {
-  //   margin-top: 2px;
-  // }
-
   &__close-wrapper {
     position: absolute;
     top: -12px;
@@ -97,10 +94,10 @@ export default {
   }
 
   &__header {
-    padding: 20px 20px 10px;
+    padding: 20px;
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
+    justify-content: center;
+    font-size: 18px;
   }
 
   &__body {

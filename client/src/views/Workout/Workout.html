@@ -1,9 +1,9 @@
 <div class="workout-view">
   <app-header text="Quick Workout"/>
   <div class="container">
-    <modal ref="setExecutionModal">
+    <modal ref="setExecutionModal" @onClose="handleModalClose">
       <template v-slot:header>
-        Edit Set
+        {{ modalHeader }}
       </template>
       <template v-slot:body>
         <div class="modal-body">
@@ -18,7 +18,7 @@
         </div>
       </template>
       <template v-slot:footer>
-        <app-button type="wide-floating" label="Save" />
+        <app-button type="wide-floating" label="Save" @clicked="handleSaveEditingSetClick"/>
       </template>
     </modal>
     <div class="body" >
@@ -65,6 +65,10 @@
               <i v-else-if="isNext(setExecution, exerciseIndex)" class="material-icons md-18 set-item-next">play_circle_outline</i>
               <i v-else-if="setExecution.status === 'pending'" class="material-icons md-18 set-item-pending">pending</i>
             </div>
+          </div>
+          <div class="set-item" @click=handleAddSetClick(exerciseExecution)>
+            <p class="add-set-text">Add Set</p>
+            <i class="add-set-button material-icons md-18">add_circle</i>
           </div>
         </div>
       </div>

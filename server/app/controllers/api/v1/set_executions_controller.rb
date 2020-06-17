@@ -24,6 +24,6 @@ class Api::V1::SetExecutionsController < ApiController
   end
 
   def update_params
-    params.permit(:status)
+    params.permit(:status, :id, :weight, :reps)
   end
 end
