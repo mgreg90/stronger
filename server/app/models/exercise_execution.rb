@@ -4,5 +4,4 @@ class ExerciseExecution < ApplicationRecord
   belongs_to :exercise
 
   has_many :set_executions
-
 end
