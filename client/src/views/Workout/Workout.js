@@ -26,18 +26,6 @@ const data = () => ({
   isModalEdit: false,
 });
 
-const getWorkout = async (id) => {
-  const response = await WorkoutExecutionsController.get(id, {
-    withSetExecutions: true,
-  });
-
-  if (!apiUtils.isRequestSuccessful(response)) {
-    apiUtils.handleErrors(this, response);
-    return null;
-  }
-  return response.body;
-};
-
 const computed = {
   exerciseExecutions() {
     return this.workout?.exerciseExecutions || [];
@@ -53,6 +41,18 @@ const handleErrors = (self, response) => {
     return false;
   }
   return true;
+};
+
+const getWorkout = async (self, id) => {
+  const response = await WorkoutExecutionsController.get(id, {
+    withSetExecutions: true,
+  });
+
+  const isSuccessful = handleErrors(self, response, false);
+  if (!isSuccessful) return false;
+
+
+  return response.body;
 };
 
 const tryCompleteSet = async (self, exerciseIndex, setIndex, item) => {
@@ -221,7 +221,12 @@ const methods = {
 
 async function mounted() {
   const { id } = this.$route.params;
-  const workout = await getWorkout(id);
+  const workout = await getWorkout(this, id);
+
+  workout.exerciseExecutions = workout.exerciseExecutions.map((ee) => {
+    const setExecutions = ee.setExecutions.sort((a, b) => (a.order < b.order ? -1 : 1));
+    return { ...ee, setExecutions };
+  });
 
   this.$set(this, 'workout', workout);
 }
