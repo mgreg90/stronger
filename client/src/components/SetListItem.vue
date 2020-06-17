@@ -12,7 +12,6 @@
       </div>
     </div>
     <div class="item-column inputs">
-      <!-- consider options for using a number pad on phone https://css-tricks.com/finger-friendly-numerical-inputs-with-inputmode/ -->
       <text-input
         inline
         v-model="set.weight"

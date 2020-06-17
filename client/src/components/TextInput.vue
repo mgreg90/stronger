@@ -7,6 +7,7 @@
       :placeholder="label"
       :value="value"
       @input="$emit('input', $event.target.value)"
+      @focus="$event.target.select()"
     >
     <p v-if="error !== 'NO_ERROR'">{{error}}</p>
   </div>
@@ -67,6 +68,10 @@ export default {
     border-radius: 10px;
     padding: 12px;
     height: 30px;
+  }
+
+  input.inline {
+    width: 80px;
   }
 
   input.error {
