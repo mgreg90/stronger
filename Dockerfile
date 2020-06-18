@@ -1,12 +1,26 @@
 # This Dockerfile does not build the client application. You must do that
 # manually before building this docker container.
 
-FROM ruby:2.7.1
+FROM ruby:2.7.1-alpine
 MAINTAINER mgregory8219@gmail.com
+
+ARG ssh_user
+ARG ssh_password
 
 # run rails in production
 ENV RAILS_ENV production
 ENV RAILS_LOG_TO_STDOUT true
+
+RUN \
+  apk update && \
+  apk add --no-cache \
+    build-base \
+    openssh \
+    postgresql-dev \
+    tzdata && \
+  echo "$ssh_username:$ssh_password" | chpasswd
+
+COPY sshd_config /etc/ssh/
 
 # application will be in /app on server
 WORKDIR /app
@@ -22,7 +36,8 @@ RUN bundle install --jobs 15
 EXPOSE 80 2222
 
 # run server
-CMD bundle exec rails s --port 80 && /usr/sbin/sshd
+COPY init.sh ./
+CMD sh init.sh
 
 # copy app
 COPY ./server .

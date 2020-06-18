@@ -11,6 +11,8 @@ fetch_credential() {
 container_registry_url=$(fetch_credential "azure.container_registry.url")
 container_registry_username=$(fetch_credential "azure.container_registry.username")
 container_registry_password=$(fetch_credential "azure.container_registry.password")
+ssh_username=$(fetch_credential "ssh.username")
+ssh_password=$(fetch_credential "ssh.password")
 
 puts() {
   echo "==========="
@@ -24,7 +26,9 @@ cd client && npm run build && cd ..
 
 # build docker container
 puts 'Building docker container...'
-docker build --tag workout-app . --no-cache || exit
+docker build --tag workout-app . --no-cache \
+  --build-arg ssh_username=$ssh_username
+  --build-arg ssh_password=$ssh_password || exit
 
 # remove old docker image
 puts 'Removing old docker image...'
@@ -32,7 +36,8 @@ docker rmi "$container_registry_url/workout-app:v1.0.0"
 
 # login to docker
 puts 'Logging in to docker container registry..'
-docker login "$container_registry_url" --username "$container_registry_username" --password "$container_registry_password" || exit
+echo "$container_registry_password" | docker login "$container_registry_url" \
+  --username "$container_registry_username" --password-stdin || exit
 
 # tag docker image
 puts 'Tagging docker image'
