@@ -6,18 +6,23 @@
       label="Search Exercises"
       v-model="searchText"
       @input="debouncedSearch"
+      icon="search"
     />
   </div>
   <div class="search-results-container">
-    <ul class="search-results-list">
+    <ul v-if="searchResults.length" class="search-results-list">
       <li class="search-results-item"
         v-for="result in searchResults"
         :key="result.id"
+        @click="handleExerciseClicked(result)"
       >
-        <a @click="handleExerciseClicked(result)">
+        <p>
           {{ result.name }}
-        </a>
+        </p>
       </li>
     </ul>
+    <div v-else class="no-results-msg">
+      No Results
+    </div>
   </div>
 </div>
