@@ -14,5 +14,18 @@
   .search-results-item {
     padding: 20px 0 20px 10px;
     border-bottom: 1px solid $light-blue;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .no-results-msg {
+    margin: 0 30px;
+    padding: 20px 0;
+    border-top: 1px solid $light-blue;
+    font-family: $default-font;
+    text-align: center;
+    font-style: italic;
   }
 }

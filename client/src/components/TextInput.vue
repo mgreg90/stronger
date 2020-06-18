@@ -1,8 +1,9 @@
 <template>
   <div :class="{'textInput-component': true, inline}">
+    <i v-if="icon" class="material-icons md-36">{{ icon }}</i>
     <input
       :type="type"
-      :class="{error: hasError, inline}"
+      :class="{error: hasError, inline, hasIcon: !!icon}"
       :name="name"
       :placeholder="label"
       :value="value"
@@ -38,6 +39,10 @@ export default {
       type: [String, Number],
       default: '',
     },
+    icon: {
+      type: String,
+      default: null,
+    },
   },
   computed: {
     hasError() {
@@ -58,6 +63,14 @@ export default {
 }
 .textInput-component {
   padding: 0px 30px 0px 30px;
+  position: relative;
+
+  i {
+    position: absolute;
+    top: 16px;
+    left: 42px;
+    color: $light-blue;
+  }
 
   input {
     width: calc(100% - 24px);
@@ -68,6 +81,10 @@ export default {
     border-radius: 10px;
     padding: 12px;
     height: 30px;
+  }
+
+  input.hasIcon {
+    text-indent: 30px;
   }
 
   input.inline {
