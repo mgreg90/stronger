@@ -34,3 +34,6 @@
   - PUSH
   - PULL
   - CORE
+- :name: Tricep Pushdown
+  :exercise_type_codes:
+  - PUSH
