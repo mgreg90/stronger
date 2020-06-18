@@ -4,9 +4,13 @@
 bindir="$(realpath ${0%/*})"
 creds=$("$bindir/prod-creds")
 
-container_registry_url=$(echo $creds | jp azure.container_registry.url | tr -d '"')
-container_registry_username=$(echo $creds | jp azure.container_registry.username | tr -d '"')
-container_registry_password=$(echo $creds | jp azure.container_registry.password | tr -d '"')
+fetch_credential() {
+  echo $creds | jp "$1" | tr -d '"'
+}
+
+container_registry_url=$(fetch_credential "azure.container_registry.url")
+container_registry_username=$(fetch_credential "azure.container_registry.username")
+container_registry_password=$(fetch_credential "azure.container_registry.password")
 
 puts() {
   echo "==========="
@@ -20,7 +24,7 @@ cd client && npm run build && cd ..
 
 # build docker container
 puts 'Building docker container...'
-docker build --tag workout-app . --no-cache
+docker build --tag workout-app . --no-cache || exit
 
 # remove old docker image
 puts 'Removing old docker image...'
@@ -28,16 +32,16 @@ docker rmi "$container_registry_url/workout-app:v1.0.0"
 
 # login to docker
 puts 'Logging in to docker container registry..'
-docker login "$container_registry_url" --username "$container_registry_username" --password "$container_registry_password"
+docker login "$container_registry_url" --username "$container_registry_username" --password "$container_registry_password" || exit
 
 # tag docker image
 puts 'Tagging docker image'
-docker tag workout-app "$container_registry_url/workout-app:v1.0.0"
+docker tag workout-app "$container_registry_url/workout-app:v1.0.0" || exit
 
 # push docker image
 puts 'Pushing docker image'
-docker push "$container_registry_url/workout-app:v1.0.0"
+docker push "$container_registry_url/workout-app:v1.0.0" || exit
 
 # restart web app in azure
 puts 'Restarting webapp in azure'
-az webapp restart --name stronger-web-app --resource-group StrongerApp
+az webapp restart --name StrongerWebApp --resource-group StrongerApp
