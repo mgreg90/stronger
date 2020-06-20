@@ -1,1 +1,1 @@
-cd server && RAILS_ENV=production rails c
+cd server && RAILS_ENV=production rails c && cd ..

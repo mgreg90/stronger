@@ -34,6 +34,10 @@
   - PUSH
   - PULL
   - CORE
+
 - :name: Tricep Pushdown
   :exercise_type_codes:
   - PUSH
+- :name: Inverted Row
+  :exercise_type_codes:
+  - PULL

@@ -6,5 +6,11 @@ creds=$("$bindir/prod-creds")
 dbPassword=$(echo $creds | jp db.password | tr -d '"')
 dbUsername=$(echo $creds | jp db.username | tr -d '"')
 dbHost=$(echo $creds | jp db.host | tr -d '"')
+dbName=$(echo $creds | jp db.database | tr -d '"')
 
-PGPASSWORD=$dbPassword psql -U $dbUsername -h $dbHost postgres
+# To create DB:
+# PGPASSWORD=$dbPassword psql -U $dbUsername -h $dbHost --port 5432 postgres
+
+# To enter db
+PGPASSWORD=$dbPassword psql -U $dbUsername -h $dbHost --dbname $dbName \
+  --port 5432

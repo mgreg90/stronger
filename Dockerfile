@@ -4,7 +4,7 @@
 FROM ruby:2.7.1-alpine
 MAINTAINER mgregory8219@gmail.com
 
-ARG ssh_user
+ARG ssh_username
 ARG ssh_password
 
 # run rails in production

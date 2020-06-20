@@ -11,8 +11,8 @@ fetch_credential() {
 container_registry_url=$(fetch_credential "azure.container_registry.url")
 container_registry_username=$(fetch_credential "azure.container_registry.username")
 container_registry_password=$(fetch_credential "azure.container_registry.password")
-ssh_username=$(fetch_credential "ssh.username")
-ssh_password=$(fetch_credential "ssh.password")
+ssh_username=$(fetch_credential "azure.ssh.username")
+ssh_password=$(fetch_credential "azure.ssh.password")
 
 puts() {
   echo "==========="
@@ -26,13 +26,13 @@ cd client && npm run build && cd ..
 
 # build docker container
 puts 'Building docker container...'
-docker build --tag workout-app . --no-cache \
-  --build-arg ssh_username=$ssh_username
+docker build --tag appstronger . --no-cache \
+  --build-arg ssh_username=$ssh_username \
   --build-arg ssh_password=$ssh_password || exit
 
 # remove old docker image
 puts 'Removing old docker image...'
-docker rmi "$container_registry_url/workout-app:v1.0.0"
+docker rmi "$container_registry_url/appstronger:v1.0.0"
 
 # login to docker
 puts 'Logging in to docker container registry..'
@@ -41,12 +41,12 @@ echo "$container_registry_password" | docker login "$container_registry_url" \
 
 # tag docker image
 puts 'Tagging docker image'
-docker tag workout-app "$container_registry_url/workout-app:v1.0.0" || exit
+docker tag appstronger "$container_registry_url/appstronger:v1.0.0" || exit
 
 # push docker image
 puts 'Pushing docker image'
-docker push "$container_registry_url/workout-app:v1.0.0" || exit
+docker push "$container_registry_url/appstronger:v1.0.0" || exit
 
 # restart web app in azure
 puts 'Restarting webapp in azure'
-az webapp restart --name StrongerWebApp --resource-group StrongerApp
+az webapp restart --name AppStronger --resource-group AppStronger
