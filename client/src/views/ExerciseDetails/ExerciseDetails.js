@@ -9,6 +9,7 @@ import ExerciseExecutionsController from '@/api/v1/controllers/ExerciseExecution
 import SetExecutionsController from '@/api/v1/controllers/SetExecutionsController';
 import apiUtils from '@/utils/apiUtils';
 import stringUtils from '@/utils/stringUtils';
+import arrayUtils from '../../utils/arrayUtils';
 
 const components = {
   AppHeader,
@@ -18,8 +19,10 @@ const components = {
   AppButton,
 };
 
-const buildSet = () => ({
-  weight: 0, reps: 1, key: uuidv4(),
+const buildSet = (set = {}) => ({
+  weight: set?.weight || 0,
+  reps: set?.reps || 1,
+  key: uuidv4(),
 });
 
 const data = () => ({
@@ -32,7 +35,8 @@ const data = () => ({
 
 const methods = {
   addNewSet() {
-    this.$data.sets.push(buildSet());
+    const prevSet = arrayUtils.last(this.$data.sets);
+    this.$data.sets.push(buildSet(prevSet));
   },
   async handleSubmit() {
     const { exerciseExecutionId, workoutId } = this.$route.params;
