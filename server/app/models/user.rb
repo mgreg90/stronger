@@ -13,6 +13,4 @@ class User < ApplicationRecord
   def normalize_email
     self.email = email.strip.downcase
   end
-
-
 end

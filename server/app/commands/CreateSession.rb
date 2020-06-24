@@ -23,10 +23,14 @@ class CreateSession
 
   private
 
-  attr_reader :email, :password
+  attr_reader :password
 
   def user
     @user ||= User.find_by(email: email)
+  end
+
+  def email
+    @email&.downcase
   end
 
 end
