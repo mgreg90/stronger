@@ -2,15 +2,13 @@
   <!-- <div class="app-button-container" :class="{ [type]: true}">
     <button :class="{ [type]: true }" type="submit" @click="handleClick">{{ label }}</button>
   </div> -->
-  <div class="app-button-container col-4">
-    <button
-      type="button"
-      @click="handleClick"
-      class="btn btn-primary"
-    >
-      {{label}}
-    </button>
-  </div>
+  <button
+    type="button"
+    @click="handleClick"
+    class="app-button btn btn-primary"
+  >
+    {{label}}
+  </button>
 </template>
 
 <script>
@@ -39,12 +37,10 @@ export default {
 <style scoped lang="scss">
 @import "bootstrap";
 
-.app-button-container {
-  button {
-    padding: 16px 24px;
-  }
+.app-button {
+  padding: 16px 24px;
 
-  button.btn-primary {
+  &.btn-primary {
     /*
       button-variant(
         $background,

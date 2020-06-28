@@ -1,13 +1,11 @@
 .home-view {
   height: 100vh;
-}
 
-.home-view .body-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: calc(100vh - 60px);
-}
-.home-view .button-container {
-  margin-bottom: 20px;
+  .container {
+    height: calc(100vh - 60px);
+
+    div {
+      height: 100%;
+    }
+  }
 }

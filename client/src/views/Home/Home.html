@@ -1,10 +1,10 @@
 <div class="home-view">
   <app-header :backButton="false"/>
-  <div class="body-container">
-    <app-button type="wide-floating" label="Quick Workout" @clicked="goToQuickWorkout"/>
-    <app-button type="wide-floating" label="Next Workout"/>
-    <app-button type="wide-floating" label="Select a Workout Plan"/>
-    <app-button type="wide-floating" label="Build a Workout Plan" @clicked="goToBuildWorkoutPlan"/>
-    <app-button type="wide-floating" label="History"/>
+  <div class="container">
+    <div class="h-100 d-flex justify-content-center align-items-center">
+      <!-- <div class="row justify-content-center"> -->
+        <app-button label="Quick Workout" @clicked="goToQuickWorkout"/>
+      <!-- </div> -->
+    </div>
   </div>
 </div>
