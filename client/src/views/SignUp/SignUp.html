@@ -8,6 +8,7 @@
         label="Email"
         v-model="email"
         :error="emailError"
+        left-icon="person"
       />
     </div>
     <div class="text-input-wrapper">
@@ -17,6 +18,7 @@
         label="Password"
         v-model="password"
         :error="passwordError"
+        left-icon="lock"
       />
     </div>
     <div class="text-input-wrapper">
@@ -26,6 +28,7 @@
         label="Password Confirmation"
         v-model="passwordConfirmation"
         :error="passwordConfirmationError"
+        left-icon="lock"
       />
     </div>
     <app-button label="Submit" @clicked="handleSubmit" />

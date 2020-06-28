@@ -1,16 +1,51 @@
+<!--// <template>
+//   <div :class="{'textInput-component': true, inline}">
+//     <i v-if="icon" class="material-icons md-36">{{ icon }}</i>
+//     <input
+//       :type="type"
+//       :class="{error: hasError, inline, hasIcon: !!icon}"
+//       :name="name"
+//       :placeholder="label"
+//       :value="value"
+//       @input="$emit('input', $event.target.value)"
+//       @focus="$event.target.select()"
+//     >
+//     <p v-if="error !== 'NO_ERROR'">{{error}}</p>
+//   </div>
+// </template> -->
 <template>
-  <div :class="{'textInput-component': true, inline}">
-    <i v-if="icon" class="material-icons md-36">{{ icon }}</i>
-    <input
-      :type="type"
-      :class="{error: hasError, inline, hasIcon: !!icon}"
-      :name="name"
-      :placeholder="label"
-      :value="value"
-      @input="$emit('input', $event.target.value)"
-      @focus="$event.target.select()"
+  <div class="textinput-container">
+    <div
+      :class="{
+        'input-group': true,
+        'has-error': error && error != 'NO_ERROR'
+      }"
     >
-    <p v-if="error !== 'NO_ERROR'">{{error}}</p>
+      <div v-if="leftIcon" class="input-group-prepend icon left-icon">
+        <span class="input-group-text">
+          <i class="material-icons md-36">{{ leftIcon }}</i>
+        </span>
+      </div>
+      <input
+        :type="type"
+        :class="{
+          'form-control': true,
+          'no-border-left': leftIcon,
+          'no-border-right': rightIcon
+        }"
+        :placeholder="label"
+        :aria-label="label"
+        :value="value"
+        @input="$emit('input', $event.target.value)"
+        @focus="$event.target.select()"
+      >
+      <div v-if="rightIcon" class="input-group-prepend icon right-icon">
+        <span class="input-group-text">
+          <i class="material-icons md-36">{{ rightIcon }}</i>
+        </span>
+      </div>
+    </div>
+    <p class="error-msg" v-if="error !== 'NO_ERROR'">{{error}}</p>
   </div>
 </template>
 
@@ -39,7 +74,11 @@ export default {
       type: [String, Number],
       default: '',
     },
-    icon: {
+    leftIcon: {
+      type: String,
+      default: null,
+    },
+    rightIcon: {
       type: String,
       default: null,
     },
@@ -53,58 +92,108 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.textInput-component.inline {
-  padding: 2px;
+  .textinput-container {
+    padding: 0px 30px 0px 30px;
 
-  input {
-    padding: 0;
-    text-align: center;
-  }
-}
-.textInput-component {
-  padding: 0px 30px 0px 30px;
-  position: relative;
+    .icon span {
+      border: 1px solid $light-blue;
+      color: $light-blue;
+      background: inherit;
+    }
 
-  i {
-    position: absolute;
-    top: 16px;
-    left: 42px;
-    color: $light-blue;
-  }
+    .has-error .icon span {
+      color: $red;
+      border-color: $red;
+    }
 
-  input {
-    width: calc(100% - 24px);
-    margin: 0;
-    font-family: $default-font;
-    border: 1px solid  $light-blue;
-    color: $light-blue;
-    border-radius: 10px;
-    padding: 12px;
-    height: 30px;
-  }
+    .left-icon span {
+      border-right: none;
+    }
 
-  input.hasIcon {
-    text-indent: 30px;
-  }
+    .right-icon span {
+      border-left: none;
+      border-top-right-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
+    }
 
-  input.inline {
-    width: 80px;
-  }
+    input {
+      border: 1px solid $light-blue;
+      color: $light-blue;
+    }
 
-  input.error {
-    border: 1px solid #d8315b;
-  }
+    .has-error input {
+      color: $red;
+      border-color: $red;
+    }
 
-  input::placeholder {
-    color: $grey;
-  }
+    input.no-border-left {
+      border-left: none;
+    }
 
-  p {
+    input.no-border-right {
+      border-right: none;
+    }
+
+    .error-msg {
     min-height: 18px;
     margin: 10px 0 0px 12px;
-    color: #d8315b;
+    color: $red;
     font-family: $default-font;
     font-size: 12px;
+    }
   }
-}
+// .textInput-component.inline {
+//   padding: 2px;
+
+//   input {
+//     padding: 0;
+//     text-align: center;
+//   }
+// }
+// .textInput-component {
+//   padding: 0px 30px 0px 30px;
+//   position: relative;
+
+//   i {
+//     position: absolute;
+//     top: 16px;
+//     left: 42px;
+//     color: $light-blue;
+//   }
+
+//   input {
+//     width: calc(100% - 24px);
+//     margin: 0;
+//     font-family: $default-font;
+//     border: 1px solid  $light-blue;
+//     color: $light-blue;
+//     border-radius: 10px;
+//     padding: 12px;
+//     height: 30px;
+//   }
+
+//   input.hasIcon {
+//     text-indent: 30px;
+//   }
+
+//   input.inline {
+//     width: 80px;
+//   }
+
+//   input.error {
+//     border: 1px solid #d8315b;
+//   }
+
+//   input::placeholder {
+//     color: $grey;
+//   }
+
+//   p {
+//     min-height: 18px;
+//     margin: 10px 0 0px 12px;
+//     color: #d8315b;
+//     font-family: $default-font;
+//     font-size: 12px;
+//   }
+// }
 </style>

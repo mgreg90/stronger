@@ -9,6 +9,7 @@
         type="email"
         v-model="email"
         :error="emailError"
+        left-icon="person"
       />
     </div>
     <div class="text-input-wrapper">
@@ -18,6 +19,7 @@
         type="password"
         v-model="password"
         :error="passwordError"
+        left-icon="lock"
       />
     </div>
     <app-button label="Submit" type="submit" @clicked="handleSubmit"/>

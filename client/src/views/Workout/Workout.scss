@@ -1,8 +1,5 @@
-@import '../../scss/modules/unselectable.scss';
-@use 'unselectable';
-
 .workout-view {
-  .container {
+  .workout-view-container {
     display: flex;
     flex-direction: column;
     height: calc(100vh - 60px);
