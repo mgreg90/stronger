@@ -1,5 +1,13 @@
 .login-view {
+  padding-right: 0;
+  padding-left: 0;
   .text-input-wrapper {
     padding-bottom: 20px;
+  }
+
+  .button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 40px;
   }
 }

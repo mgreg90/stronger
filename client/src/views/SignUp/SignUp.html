@@ -2,36 +2,46 @@
   <banner-header />
   <form-header text="Sign Up" />
   <form>
-    <div class="text-input-wrapper">
-      <text-input
-        name="email"
-        label="Email"
-        v-model="email"
-        :error="emailError"
-        left-icon="person"
-      />
+    <div class="container">
+      <div class="text-input-wrapper justify-content-center row" >
+        <div class="col-10">
+          <text-input
+            name="email"
+            label="Email"
+            v-model="email"
+            :error="emailError"
+            left-icon="person"
+          />
+        </div>
+      </div>
+      <div class="text-input-wrapper justify-content-center row" >
+        <div class="col-10">
+          <text-input
+            name="password"
+            type="password"
+            label="Password"
+            v-model="password"
+            :error="passwordError"
+            left-icon="lock"
+          />
+        </div>
+      </div>
+      <div class="text-input-wrapper justify-content-center row" >
+        <div class="col-10">
+          <text-input
+            name="passwordConfirmation"
+            type="password"
+            label="Password Confirmation"
+            v-model="passwordConfirmation"
+            :error="passwordConfirmationError"
+            left-icon="lock"
+          />
+        </div>
+      </div>
+      <div class="text-input-wrapper button-wrapper">
+        <app-button label="Submit" @clicked="handleSubmit" />
+      </div>
     </div>
-    <div class="text-input-wrapper">
-      <text-input
-        name="password"
-        type="password"
-        label="Password"
-        v-model="password"
-        :error="passwordError"
-        left-icon="lock"
-      />
-    </div>
-    <div class="text-input-wrapper">
-      <text-input
-        name="passwordConfirmation"
-        type="password"
-        label="Password Confirmation"
-        v-model="passwordConfirmation"
-        :error="passwordConfirmationError"
-        left-icon="lock"
-      />
-    </div>
-    <app-button label="Submit" @clicked="handleSubmit" />
     <redirect-disclaimer messageText="Already have an account?" linkText="Log in here." href="/login" />
   </form>
 </div>
