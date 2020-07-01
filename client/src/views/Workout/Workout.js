@@ -1,12 +1,13 @@
-import AppHeader from '@/components/AppHeader.vue';
-import AppButton from '@/components/AppButton.vue';
-import FloatingButton from '@/components/FloatingButton.vue';
-import Modal from '@/components/Modal.vue';
-import TextInput from '@/components/TextInput.vue';
+import {
+  AppButton,
+  AppHeader,
+  FloatingButton,
+  Modal,
+  TextInput,
+} from '@/components';
 import WorkoutExecutionsController from '@/api/v1/controllers/WorkoutExecutionsController';
 import SetExecutionsController from '@/api/v1/controllers/SetExecutionsController';
-import apiUtils from '@/utils/apiUtils';
-import stringUtils from '@/utils/stringUtils';
+import { apiUtils, stringUtils } from '@/utils';
 
 import cloneDeep from 'lodash.clonedeep';
 

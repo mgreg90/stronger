@@ -18,7 +18,7 @@
         </div>
       </template>
       <template v-slot:footer>
-        <app-button type="wide-floating" label="Save" @clicked="handleSaveEditingSetClick"/>
+        <app-button block label="Save" @clicked="handleSaveEditingSetClick"/>
       </template>
     </modal>
     <div class="body" >
@@ -33,7 +33,7 @@
         v-for="(exerciseExecution, exerciseIndex) in exerciseExecutions"
       >
         <div class="drag-icon">
-          <i class="material-icons md-18">drag_handle</i>
+          <i class="material-icons md-24">drag_handle</i>
         </div>
         <div class="details">
           <div class="name">
@@ -73,11 +73,13 @@
         </div>
       </div>
     </div>
-    <floating-button @clicked="goToAddExercise" v-if="!workout.finishedAt" />
+    <div class="floating-btn-container">
+      <floating-button @clicked="goToAddExercise" v-if="!workout.finishedAt" />
+    </div>
     <div v-if="!workout.finishedAt" class="submit-button">
       <app-button
         label="Complete Workout"
-        type="wide-bottom"
+        block
         @clicked="handleWorkoutCompleted"
       />
     </div>

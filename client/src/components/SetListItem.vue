@@ -12,16 +12,20 @@
       </div>
     </div>
     <div class="item-column inputs">
-      <text-input
-        inline
-        v-model="set.weight"
-        type="number"
-      />
-      <text-input
-        inline
-        v-model="set.reps"
-        type="number"
-      />
+      <div class="input-container">
+        <text-input
+          v-model="set.weight"
+          type="number"
+          center-text
+        />
+      </div>
+      <div class="input-container">
+        <text-input
+          v-model="set.reps"
+          type="number"
+          center-text
+        />
+      </div>
     </div>
     <div class="item-column units">
       <div>
@@ -88,6 +92,12 @@ export default {
 
   .inputs {
     width: 35%;
+
+    .input-container {
+      margin: 5px;
+      width: 50%;
+      align-self: center;
+    }
   }
 
   .units {

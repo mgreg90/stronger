@@ -1,11 +1,13 @@
 <template>
-  <!-- <div class="app-button-container" :class="{ [type]: true}">
-    <button :class="{ [type]: true }" type="submit" @click="handleClick">{{ label }}</button>
-  </div> -->
   <button
     type="button"
     @click="handleClick"
-    class="app-button btn btn-primary"
+    :class="{
+      'app-button': true,
+      btn: true,
+      'btn-primary': true,
+      'btn-block': block
+    }"
   >
     {{label}}
   </button>
@@ -14,9 +16,9 @@
 <script>
 const props = {
   label: String,
-  type: {
-    type: String,
-    default: 'submit',
+  block: {
+    type: Boolean,
+    default: false,
   },
 };
 
@@ -64,42 +66,9 @@ export default {
       background: darken($light-blue, 20%);
     }
   }
+
+  &.btn-block {
+    border-radius: 0;
+  }
 }
-  // .app-button-container {
-  //   display: flex;
-  //   flex-direction: row-reverse;
-  // }
-
-  // .app-button-container.submit {
-  //   padding: 0px 30px 30px 30px;
-  // }
-
-  // .app-button-container.wide-bottom {
-  //       justify-self: flex-start;
-  // }
-
-  // .app-button-container button {
-  //   color: $white;
-  //   background-color: $light-blue;
-  //   box-shadow: 1px 2px $grey; /* grey */
-  //   font-family: $default-font;
-  //   border: 1px solid $white;
-  //   border-radius: 10px;
-  //   padding: 20px;
-  // }
-
-  // .app-button-container .submit {
-  //   width: 40%;
-  // }
-
-  // .app-button-container .wide-floating {
-  //   width: 100%;
-  //   margin: 15px 20px;
-  // }
-
-  // .app-button-container .wide-bottom {
-  //   border-radius: 0;
-  //   width: 100%;
-  //   border: 0;
-  // }
 </style>

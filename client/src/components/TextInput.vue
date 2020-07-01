@@ -8,7 +8,7 @@
     >
       <div v-if="leftIcon" class="input-group-prepend icon left-icon">
         <span class="input-group-text">
-          <i class="material-icons md-36">{{ leftIcon }}</i>
+          <i class="material-icons md-24">{{ leftIcon }}</i>
         </span>
       </div>
       <input
@@ -16,7 +16,8 @@
         :class="{
           'form-control': true,
           'no-border-left': leftIcon,
-          'no-border-right': rightIcon
+          'no-border-right': rightIcon,
+          'center-text': centerText,
         }"
         :placeholder="label"
         :aria-label="label"
@@ -67,6 +68,10 @@ export default {
       type: String,
       default: null,
     },
+    centerText: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     hasError() {
@@ -103,19 +108,23 @@ export default {
     input {
       border: 1px solid $light-blue;
       color: $light-blue;
+
+      &.center-text {
+        text-align: center;
+      }
+
+      &.no-border-left {
+        border-left: none;
+      }
+
+      &.no-border-right {
+        border-right: none;
+      }
     }
 
     .has-error input {
       color: $red;
       border-color: $red;
-    }
-
-    input.no-border-left {
-      border-left: none;
-    }
-
-    input.no-border-right {
-      border-right: none;
     }
 
     .error-msg {

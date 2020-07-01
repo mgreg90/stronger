@@ -5,8 +5,10 @@
       <set-list-item v-for="(set, index) in sets" :key="set.key" :set="set" :index="index"/>
     </div>
     <div class="footer">
-      <floating-button @clicked="addNewSet"/>
-      <app-button label="Submit" type="wide-bottom" @clicked="handleSubmit"/>
+      <div class="floating-btn-container">
+        <floating-button @clicked="addNewSet"/>
+      </div>
+      <app-button block label="Submit" @clicked="handleSubmit"/>
     </div>
   </div>
 </div>
