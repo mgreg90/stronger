@@ -12,4 +12,10 @@
       flex-shrink: 0;
     }
   }
+
+  .floating-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px;
+  }
 }

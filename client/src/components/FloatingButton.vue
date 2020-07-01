@@ -1,9 +1,7 @@
 <template>
-  <div class="floating-button-container" >
-    <button @click="handleClick">
-      <i class="material-icons md-60">add</i>
-    </button>
-  </div>
+  <button class="floating-button btn btn-dark" @click="handleClick">
+    <i class="material-icons md-36">add</i>
+  </button>
 </template>
 
 <script>
@@ -30,24 +28,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .floating-button-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
+.floating-button {
+  border-radius: 100%;
+  width: 70px;
+  height: 70px;
 
-  .floating-button-container i {
-    color: $white;
-    font-size: 40px;
+  i {
+    margin-top: 6px;
   }
-
-  .floating-button-container button {
-    border: 0;
-    padding: 10px;
-    background-color: #1e1b18;
-    border-radius: 100%;
-    margin: 20px;
-    box-shadow: 5px 5px 5px #a0a0a0;
-  }
-
+}
 </style>

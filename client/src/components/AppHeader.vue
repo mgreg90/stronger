@@ -1,7 +1,7 @@
 <template>
   <div class="banner-header" >
     <div class="back-button" :class="{hide: !backButton}" @click="handleBackClick">
-      <i class="material-icons md-18">arrow_back_ios</i>
+      <i class="material-icons md-24">arrow_back_ios</i>
     </div>
     <h1>{{text}}</h1>
   </div>

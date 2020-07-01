@@ -1,4 +1,4 @@
-import validate, { validateField } from '../../utils/validate';
+import { validateField } from '@/utils/validate';
 
 describe.only('utils/validate', () => {
   describe.only('#validate', () => {

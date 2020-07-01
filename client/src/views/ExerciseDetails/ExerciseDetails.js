@@ -7,9 +7,7 @@ import SetListItem from '@/components/SetListItem.vue';
 import TextInput from '@/components/TextInput.vue';
 import ExerciseExecutionsController from '@/api/v1/controllers/ExerciseExecutionsController';
 import SetExecutionsController from '@/api/v1/controllers/SetExecutionsController';
-import apiUtils from '@/utils/apiUtils';
-import stringUtils from '@/utils/stringUtils';
-import arrayUtils from '../../utils/arrayUtils';
+import { apiUtils, arrayUtils, stringUtils } from '@/utils/index';
 
 const components = {
   AppHeader,
@@ -78,7 +76,7 @@ async function mounted() {
     apiUtils.handleErrors(this, response);
     return;
   }
-  console.log('exercise', response.body.exercise);
+
   this.$set(this, 'exercise', response.body.exercise);
 }
 

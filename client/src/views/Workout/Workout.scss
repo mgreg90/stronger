@@ -1,8 +1,5 @@
-@import '../../scss/modules/unselectable.scss';
-@use 'unselectable';
-
 .workout-view {
-  .container {
+  .workout-view-container {
     display: flex;
     flex-direction: column;
     height: calc(100vh - 60px);
@@ -34,9 +31,9 @@
 
       .exercise-item-container {
         display: grid;
-        grid-template-columns: 60px 140px auto;
-        height: 100px;
-        max-height: 100px;
+        grid-template-columns: 60px 150px auto;
+        height: 120px;
+        max-height: 120px;
         font-family: $default-font;
         position: relative;
 
@@ -44,6 +41,7 @@
           display: flex;
           justify-content: center;
           align-items: center;
+          margin-right: 10px;
         }
 
         .details {
@@ -74,7 +72,7 @@
           position: absolute;
           top: 20px;
           right: 0;
-          height: 60px;
+          height: 80px;
           width: 1px;
           background: $light-blue;
         }
@@ -129,7 +127,7 @@
             content: "";
             position: absolute;
             top: 20px;
-            height: 60px;
+            height: 80px;
             background: $light-blue;
             width: 1px;
           }
@@ -138,7 +136,7 @@
             content: "";
             position: absolute;
             top: 20px;
-            height: 60px;
+            height: 80px;
             right: 0;
             background: $light-blue;
             width: 1px;
@@ -171,6 +169,12 @@
         background: $light-blue;
         height: 1px;
       }
+    }
+
+    .floating-btn-container {
+      display: flex;
+      justify-content: flex-end;
+      margin: 20px;
     }
     
     .submit-button {
