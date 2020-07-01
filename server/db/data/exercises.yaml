@@ -41,3 +41,10 @@
 - :name: Inverted Row
   :exercise_type_codes:
   - PULL
+
+- :name: Goblet Squat
+  :exercise_type_codes:
+  - PUSH
+- :name: DB Romanian Deadlift
+  :exercise_type_codes:
+  - PULL
