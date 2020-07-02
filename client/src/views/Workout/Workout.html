@@ -31,6 +31,12 @@
       </template>
       <template v-slot:footer>
         <div class="modal-button-wrapper">
+          <app-button
+            v-if="isModalEdit"
+            label="Delete"
+            type="btn-outline-danger"
+            @clicked="handleDeleteEditingSetClick"
+          />
           <app-button label="Save" @clicked="handleSaveEditingSetClick"/>
         </div>
       </template>

@@ -100,6 +100,15 @@ const tryUpdateSet = async (self) => {
   return response.body;
 };
 
+const tryDeleteSet = async (self) => {
+  const response = await SetExecutionsController.delete(self.editingSet.id);
+
+  const isSuccessful = handleErrors(self, response, false);
+  if (!isSuccessful) return false;
+
+  return true;
+};
+
 const tryCreateSet = async (self) => {
   const response = await SetExecutionsController.create({
     ...self.editingSet,
@@ -152,6 +161,24 @@ const createSet = async (self) => {
   self.$set(self.workout.exerciseExecutions, exerciseIndex, exerciseExecution);
 };
 
+const removeSet = (self, setId) => {
+  let exerciseExecutionIndex;
+  let setIndex;
+
+  self.workout.exerciseExecutions.forEach((ee, idx) => {
+    if (exerciseExecutionIndex) return;
+
+    const curSetIndex = ee.setExecutions.findIndex((se) => se?.id === setId);
+
+    if (curSetIndex !== -1) {
+      exerciseExecutionIndex = idx;
+      setIndex = curSetIndex;
+    }
+  });
+
+  self.workout.exerciseExecutions[exerciseExecutionIndex].setExecutions.splice(setIndex, 1);
+};
+
 const methods = {
   async goToAddExercise() {
     const { id } = this.$data.workout;
@@ -164,6 +191,17 @@ const methods = {
     const isSetUpdated = await tryCompleteSet(this, exerciseIndex, setIndex, item);
     if (!isSetUpdated) return;
     if (!this.workout.startedAt) await tryStartWorkout(this);
+  },
+
+  async handleDeleteEditingSetClick() {
+    const deletedSetId = this.editingSet.id;
+    const isSetDeleted = await tryDeleteSet(this);
+
+    if (isSetDeleted) {
+      removeSet(this, deletedSetId);
+    }
+
+    this.$refs.setExecutionModal.closeModal();
   },
 
   async handleSaveEditingSetClick() {

@@ -63,6 +63,19 @@ const v1Patch = async (path, payload) => {
   return { status: response.status, body };
 };
 
+const v1Delete = async (path) => {
+  const headers = standardHeaders();
+  const response = await fetch(
+    `${BASE_API_URL}${path}`, {
+      method: 'DELETE',
+      headers,
+    },
+  );
+
+  const body = await tryParseBody(response);
+  return { status: response.status, body };
+};
+
 const controllerBase = {
   V1_EXERCISE_EXECUTIONS_PATH: 'v1/exercise_executions',
   V1_EXERCISES_SEARCH_PATH: 'v1/exercises/search',
@@ -71,9 +84,10 @@ const controllerBase = {
   V1_USERS_PATH: 'v1/users',
   V1_WORKOUT_EXECUTIONS_PATH: 'v1/workout_executions',
 
+  v1Delete,
   v1Get,
-  v1Post,
   v1Patch,
+  v1Post,
 
   standardHeaders,
 };
