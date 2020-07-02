@@ -17,16 +17,32 @@
           width: 80px;
           margin: 10px 0;
         }
+
+        .modal-text-input-wrapper {
+          text-align: center;
+          width: 30%;
+        }
       }
+    }
+
+    .modal-button-wrapper {
+      display: flex;
+      justify-content: center;
     }
     
     .body {
       flex: 1 0 auto;
 
       .no-exercises-msg {
+        margin-top: 20px;
         font-family: $default-font;
         text-align: center;
         font-style: italic;
+
+        p {
+          margin: 0;
+          font-size: 1.1em;
+        }
       }
 
       .exercise-item-container {

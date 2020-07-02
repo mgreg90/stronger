@@ -5,7 +5,7 @@ import App from '@/App.vue';
 import router from '@/router';
 import initializers from '@/config/initializers';
 
-Object.values(initializers).forEach((initializer) => initializer());
+initializers.initAll();
 
 Vue.config.productionTip = false;
 

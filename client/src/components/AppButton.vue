@@ -6,7 +6,8 @@
       'app-button': true,
       btn: true,
       'btn-primary': true,
-      'btn-block': block
+      'btn-block': block,
+      rounded: rounded
     }"
   >
     {{label}}
@@ -17,6 +18,10 @@
 const props = {
   label: String,
   block: {
+    type: Boolean,
+    default: false,
+  },
+  rounded: {
     type: Boolean,
     default: false,
   },

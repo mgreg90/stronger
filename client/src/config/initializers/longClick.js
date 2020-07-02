@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import LongPress from 'vue-directive-long-press';
+import LongPress from '@/directives/longPress';
 
 const initializeLongClick = () => {
   Vue.directive('long-press', LongPress);
