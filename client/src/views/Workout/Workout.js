@@ -261,7 +261,7 @@ const methods = {
       if (this.deleteExerciseIds.includes(exerciseExecution.id)) return;
 
       this.deleteExerciseIds.push(exerciseExecution.id);
-    }
+    };
   },
 
   handleExerciseSwipeLeft(exerciseExecution) {
@@ -271,7 +271,7 @@ const methods = {
       if (idx === -1) return;
 
       this.deleteExerciseIds.splice(idx, 1);
-    }
+    };
   },
 
   async handleWorkoutCompleted() {
