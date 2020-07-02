@@ -5,7 +5,7 @@
     :class="{
       'app-button': true,
       btn: true,
-      'btn-primary': true,
+      [type]: true,
       'btn-block': block,
       rounded: rounded
     }"
@@ -24,6 +24,14 @@ const props = {
   rounded: {
     type: Boolean,
     default: false,
+  },
+  type: {
+    type: String,
+    default: 'btn-primary',
+    validator(val) {
+      const types = ['btn-primary', 'btn-danger', 'btn-outline-danger'];
+      return types.includes(val);
+    },
   },
 };
 

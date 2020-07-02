@@ -15,6 +15,10 @@ class Api::V1::SetExecutionsController < ApiController
     render json: SetExecutionBlueprint.render(set_execution, view: :normal), status: :ok
   end
 
+  def destroy
+    SetExecution.destroy(params[:id])
+  end
+
   private
 
   def create_params

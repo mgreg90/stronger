@@ -16,6 +16,11 @@ const SetExecutionsController = {
     return controllerBase.v1Patch(url, payload);
   },
 
+  async delete(id) {
+    const url = `${controllerBase.V1_SET_EXECUTIONS_PATH}/${id}`;
+    return controllerBase.v1Delete(url);
+  },
+
 };
 
 export default SetExecutionsController;
