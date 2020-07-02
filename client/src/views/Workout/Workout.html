@@ -9,16 +9,30 @@
         <div class="modal-body">
           <div class="modal-body-item">
             <p>Weight</p>
-            <text-input inline v-model="editingSet.weight" type="number"/>
+            <div class="modal-text-input-wrapper">
+              <text-input
+                v-model="editingSet.weight"
+                type="number"
+                center-text
+              />
+            </div>
           </div>
           <div class="modal-body-item">
             <p>Reps</p>
-            <text-input inline v-model="editingSet.reps" type="number"/>
+            <div class="modal-text-input-wrapper">
+              <text-input
+                v-model="editingSet.reps"
+                type="number"
+                center-text
+              />
+            </div>
           </div>
         </div>
       </template>
       <template v-slot:footer>
-        <app-button block label="Save" @clicked="handleSaveEditingSetClick"/>
+        <div class="modal-button-wrapper">
+          <app-button label="Save" @clicked="handleSaveEditingSetClick"/>
+        </div>
       </template>
     </modal>
     <div class="body" >

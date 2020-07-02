@@ -3,9 +3,14 @@ import initializeLongClick from '@/config/initializers/longClick';
 import initializeToasted from '@/config/initializers/toasted';
 
 const initializers = {
-  initializeExternalStylesheets,
-  initializeLongClick,
-  initializeToasted,
+  initAll() {
+    this.initFunctions.forEach((initFunction) => initFunction());
+  },
+  initFunctions: [
+    initializeExternalStylesheets,
+    initializeLongClick,
+    initializeToasted,
+  ],
 };
 
 export default initializers;

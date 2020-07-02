@@ -1,21 +1,21 @@
 <template>
   <transition name="fade">
-    <div class="modal" v-if="show">
-      <div class="modal__backdrop" @click="closeModal()"/>
+    <div class="app-modal" v-if="show">
+      <div class="app-modal__backdrop" @click="closeModal()"/>
 
-      <div class="modal__dialog">
-        <div class="modal__header">
+      <div class="app-modal__dialog">
+        <div class="app-modal__header">
           <slot name="header"/>
-          <div class="modal__close-wrapper">
-            <i class="modal__close material-icons md-36" @click="closeModal()">close</i>
+          <div class="app-modal__close-wrapper">
+            <i class="app-modal__close material-icons md-24" @click="closeModal()">close</i>
           </div>
         </div>
 
-        <div class="modal__body">
+        <div class="app-modal__body">
           <slot name="body"/>
         </div>
 
-        <div class="modal__footer">
+        <div class="app-modal__footer">
           <slot name="footer"/>
         </div>
       </div>
@@ -28,12 +28,12 @@ const data = () => ({ show: false });
 
 const methods = {
   closeModal() {
-    this.show = false;
+    this.$set(this, 'show', false);
     this.$emit('onClose');
     document.querySelector('body').classList.remove('overflow-hidden');
   },
   openModal() {
-    this.show = true;
+    this.$set(this, 'show', true);
     document.querySelector('body').classList.add('overflow-hidden');
   },
 };
@@ -46,7 +46,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal {
+.app-modal {
   overflow-x: hidden;
   overflow-y: auto;
   position: fixed;
@@ -83,14 +83,21 @@ export default {
 
   &__close-wrapper {
     position: absolute;
-    top: -12px;
-    right: -12px;
+    top: -10px;
+    right: -10px;
     color: $red;
     border: 0;
     background: white;
     border-radius: 100%;
     height: 24px;
+    width: 24px;
     border: $red 2px solid;
+
+    i {
+      position: relative;
+      top: -2px;
+      left: -2px;
+    }
   }
 
   &__header {
