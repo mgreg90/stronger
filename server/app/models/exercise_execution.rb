@@ -3,5 +3,5 @@ class ExerciseExecution < ApplicationRecord
   belongs_to :workout_execution
   belongs_to :exercise
 
-  has_many :set_executions
+  has_many :set_executions, dependent: :destroy
 end

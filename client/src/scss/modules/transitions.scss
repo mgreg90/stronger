@@ -1,0 +1,16 @@
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition-duration: 0.2s;
+  transition-property: width, transform;
+  overflow: hidden;
+}
+
+.slide-right-leave-active {
+  // opacity: 0;
+  transform: translate(-2em, 0);
+}
+
+.slide-right-enter {
+  // opacity: 0;
+  transform: translate(-2em, 0);
+}

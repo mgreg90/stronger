@@ -1,4 +1,4 @@
-class Api::V1::ExerciseExecutionsController < ApiController
+class Api::V1::ExerciseExecutionsController < AuthenticatedApiController
   def show
     with_exercise = params[:with_exercise].to_bool
 
@@ -16,6 +16,10 @@ class Api::V1::ExerciseExecutionsController < ApiController
   def update
     exercise_execution = ExerciseExecution.update(update_params)
     render json: exercise_execution, status: :ok
+  end
+
+  def destroy
+    ExerciseExecution.destroy(params[:id])
   end
 
   private

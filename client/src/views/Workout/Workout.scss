@@ -47,21 +47,38 @@
       }
 
       .exercise-item-container {
-        display: grid;
-        grid-template-columns: 60px 150px auto;
+        display: flex;
+        justify-content: flex-start;
         height: 120px;
         max-height: 120px;
         font-family: $default-font;
         position: relative;
 
         .drag-icon {
+          min-width: 50px;
           display: flex;
           justify-content: center;
           align-items: center;
           margin-right: 10px;
+          background-color: white;
+          z-index: 2;
+        }
+
+        .delete-exercise {
+          min-width: 50px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: $red;
+          color: $white;
+          margin: 5px 10px 5px 0px;
+          border-radius: 10px;
+          border: darken($red, 5%) solid 1px;
+          z-index: 1;
         }
 
         .details {
+          min-width: 150px;
           position: relative;
 
           .name {

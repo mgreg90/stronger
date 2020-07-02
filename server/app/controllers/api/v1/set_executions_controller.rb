@@ -1,4 +1,4 @@
-class Api::V1::SetExecutionsController < ApiController
+class Api::V1::SetExecutionsController < AuthenticatedApiController
   def create
     set_executions = nil
     SetExecution.transaction do

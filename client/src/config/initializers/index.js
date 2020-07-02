@@ -1,6 +1,7 @@
 import initializeExternalStylesheets from '@/config/initializers/externalStylesheets';
 import initializeLongClick from '@/config/initializers/longClick';
 import initializeToasted from '@/config/initializers/toasted';
+import initializeVue2TouchEvents from '@/config/initializers/vue2TouchEvents';
 
 const initializers = {
   initAll() {
@@ -10,6 +11,7 @@ const initializers = {
     initializeExternalStylesheets,
     initializeLongClick,
     initializeToasted,
+    initializeVue2TouchEvents,
   ],
 };
 
