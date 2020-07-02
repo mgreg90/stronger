@@ -7,7 +7,7 @@ Rails.application.routes.draw do
         resources :search, only: %i(create)
       end
 
-      resources :exercise_executions, only: %i(create show)
+      resources :exercise_executions, only: %i(create show update destroy)
       resources :sessions, only: %i(create)
       resources :set_executions, only: %i(create update destroy)
       resources :users, only: %i(create)

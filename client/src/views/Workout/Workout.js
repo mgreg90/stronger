@@ -5,8 +5,9 @@ import {
   Modal,
   TextInput,
 } from '@/components';
-import WorkoutExecutionsController from '@/api/v1/controllers/WorkoutExecutionsController';
+import ExerciseExecutionsController from '@/api/v1/controllers/ExerciseExecutionsController';
 import SetExecutionsController from '@/api/v1/controllers/SetExecutionsController';
+import WorkoutExecutionsController from '@/api/v1/controllers/WorkoutExecutionsController';
 import { apiUtils, stringUtils } from '@/utils';
 
 import cloneDeep from 'lodash.clonedeep';
@@ -25,6 +26,7 @@ const data = () => ({
   },
   editingSet: null,
   isModalEdit: false,
+  deleteExerciseIds: [],
 });
 
 const computed = {
@@ -85,6 +87,15 @@ const tryUpdateWorkout = async (self, field, value) => {
     field,
     response.body[field],
   );
+  return true;
+};
+
+const tryDeleteExerciseExecution = async (self, id) => {
+  const response = await ExerciseExecutionsController.delete(id);
+
+  const isSuccessful = handleErrors(self, response, false);
+  if (!isSuccessful) return false;
+
   return true;
 };
 
@@ -204,6 +215,19 @@ const methods = {
     this.$refs.setExecutionModal.closeModal();
   },
 
+  async handleDeleteExerciseClick(exerciseExecution) {
+    const { id } = exerciseExecution;
+    const isExerciseExecutionDeleted = await tryDeleteExerciseExecution(this, id);
+
+    if (isExerciseExecutionDeleted) {
+      const idx = this.workout.exerciseExecutions.findIndex((ee) => ee.id === id);
+      this.workout.exerciseExecutions.splice(idx, 1);
+
+      const deleteIdx = this.deleteExerciseIds.findIndex((curId) => curId === id);
+      this.deleteExerciseIds.splice(deleteIdx, 1);
+    }
+  },
+
   async handleSaveEditingSetClick() {
     if (this.editingSet.id) {
       await updateSet(this);
@@ -232,6 +256,24 @@ const methods = {
     this.$refs.setExecutionModal.openModal();
   },
 
+  handleExerciseSwipeRight(exerciseExecution) {
+    return () => {
+      if (this.deleteExerciseIds.includes(exerciseExecution.id)) return;
+
+      this.deleteExerciseIds.push(exerciseExecution.id);
+    }
+  },
+
+  handleExerciseSwipeLeft(exerciseExecution) {
+    return () => {
+      const idx = this.deleteExerciseIds.findIndex((ee) => ee === exerciseExecution.id);
+      console.log(exerciseExecution, idx);
+      if (idx === -1) return;
+
+      this.deleteExerciseIds.splice(idx, 1);
+    }
+  },
+
   async handleWorkoutCompleted() {
     const isWorkoutFinished = await tryFinishWorkout(this);
     if (isWorkoutFinished) {
@@ -255,6 +297,10 @@ const methods = {
       set.status === 'pending');
 
     return setExecution.id === firstPendingSet.id;
+  },
+
+  exerciseHasDelete(exercise) {
+    return this.deleteExerciseIds.includes(exercise.id);
   },
 };
 

@@ -11,6 +11,11 @@ const ExerciseExecutionsController = {
     return controllerBase.v1Get(url, queryParams);
   },
 
+  async delete(id) {
+    const url = `${controllerBase.V1_EXERCISE_EXECUTIONS_PATH}/${id}`;
+    return controllerBase.v1Delete(url);
+  },
+
 };
 
 export default ExerciseExecutionsController;

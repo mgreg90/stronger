@@ -51,11 +51,24 @@
         class="exercise-item-container"
         v-else
         v-for="(exerciseExecution, exerciseIndex) in exerciseExecutions"
+        :key="exerciseExecution.id"
       >
         <div class="drag-icon">
           <i class="material-icons md-24">drag_handle</i>
         </div>
-        <div class="details">
+        <transition name="slide-right">
+          <div
+            v-if="exerciseHasDelete(exerciseExecution)"
+            @click="handleDeleteExerciseClick(exerciseExecution)"
+            class="delete-exercise"
+          >
+            <i class="material-icons md-36">remove_circle_outline</i>
+          </div>
+        </transition>
+        <div class="details"
+          v-touch:swipe.right="handleExerciseSwipeRight(exerciseExecution)"
+          v-touch:swipe.left="handleExerciseSwipeLeft(exerciseExecution)"
+        >
           <div class="name">
             <p>{{ellipsis(exerciseExecution.exercise.name)}}</p>
           </div>
