@@ -9,7 +9,7 @@ class Api::V1::ExerciseExecutionsController < AuthenticatedApiController
   end
 
   def create
-    exercise_execution = ExerciseExecution.create(create_params)
+    exercise_execution = ExerciseExecution.create!(create_params.merge(user: current_user))
     render json: exercise_execution, status: :created
   end
 

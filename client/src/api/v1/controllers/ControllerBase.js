@@ -83,6 +83,7 @@ const controllerBase = {
   V1_SET_EXECUTIONS_PATH: 'v1/set_executions',
   V1_USERS_PATH: 'v1/users',
   V1_WORKOUT_EXECUTIONS_PATH: 'v1/workout_executions',
+  v1ExercisePreviousExecutionSummaryPath: (exerciseId) => `v1/exercises/${exerciseId}/previous_execution_summary`,
 
   v1Delete,
   v1Get,

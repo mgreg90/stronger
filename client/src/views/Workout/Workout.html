@@ -72,10 +72,10 @@
           <div class="name">
             <p>{{ellipsis(exerciseExecution.exercise.name)}}</p>
           </div>
-          <div class="description">
-            <p>Previously: 5/12/20</p>
-            <p>Sets: 3</p>
-            <p>Max Wt: 165</p>
+          <div v-if="previousSummaryFor(exerciseExecution)" class="description">
+            <p>Previously: {{ previousSummaryFor(exerciseExecution).date }}</p>
+            <p>Sets: {{ previousSummaryFor(exerciseExecution).numSets }} | Reps: {{ previousSummaryFor(exerciseExecution).minReps }} - {{ previousSummaryFor(exerciseExecution).maxReps }}</p>
+            <p>Wt: {{ previousSummaryFor(exerciseExecution).minWeight }} - {{ previousSummaryFor(exerciseExecution).maxWeight }}</p>
           </div>
         </div>
         <div class="sets">

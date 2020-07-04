@@ -6,9 +6,15 @@ import {
   TextInput,
 } from '@/components';
 import ExerciseExecutionsController from '@/api/v1/controllers/ExerciseExecutionsController';
+import PreviousExecutionSummaryController from '@/api/v1/controllers/exercises/PreviousExecutionSummaryController';
 import SetExecutionsController from '@/api/v1/controllers/SetExecutionsController';
 import WorkoutExecutionsController from '@/api/v1/controllers/WorkoutExecutionsController';
-import { apiUtils, stringUtils } from '@/utils';
+import {
+  apiUtils,
+  arrayUtils,
+  dateTimeUtils,
+  stringUtils,
+} from '@/utils';
 
 import cloneDeep from 'lodash.clonedeep';
 
@@ -27,6 +33,7 @@ const data = () => ({
   editingSet: null,
   isModalEdit: false,
   deleteExerciseIds: [],
+  previousExerciseSummaries: [],
 });
 
 const computed = {
@@ -267,7 +274,6 @@ const methods = {
   handleExerciseSwipeLeft(exerciseExecution) {
     return () => {
       const idx = this.deleteExerciseIds.findIndex((ee) => ee === exerciseExecution.id);
-      console.log(exerciseExecution, idx);
       if (idx === -1) return;
 
       this.deleteExerciseIds.splice(idx, 1);
@@ -302,6 +308,29 @@ const methods = {
   exerciseHasDelete(exercise) {
     return this.deleteExerciseIds.includes(exercise.id);
   },
+
+  previousSummaryFor(exerciseExecution) {
+    const findFunc = (summary) => summary.exerciseId === exerciseExecution.exercise.id;
+    const summary = this.previousExerciseSummaries.find(findFunc);
+
+    return summary;
+  },
+};
+
+const getPreviousExerciseExecutionSummaries = async (self, exerciseIds) => {
+  const promises = exerciseIds.map((id) => PreviousExecutionSummaryController.get(id));
+  const responses = await Promise.allSettled(promises);
+  const responseBodies = responses.map((response) => {
+    const { body } = response?.value;
+    if (!body) return null;
+
+    return {
+      ...body,
+      date: dateTimeUtils.localDateFromString(body.date),
+    };
+  });
+
+  return arrayUtils.compact(responseBodies);
 };
 
 async function mounted() {
@@ -314,6 +343,13 @@ async function mounted() {
   });
 
   this.$set(this, 'workout', workout);
+
+  const summaries = await getPreviousExerciseExecutionSummaries(
+    this,
+    workout.exerciseExecutions.map((ee) => ee.exercise.id),
+  );
+
+  this.$set(this, 'previousExerciseSummaries', summaries);
 }
 
 export default {

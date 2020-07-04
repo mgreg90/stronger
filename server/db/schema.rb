@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_13_032919) do
+ActiveRecord::Schema.define(version: 2020_07_04_003502) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -21,7 +21,9 @@ ActiveRecord::Schema.define(version: 2020_05_13_032919) do
     t.bigint "exercise_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
     t.index ["exercise_id"], name: "index_exercise_executions_on_exercise_id"
+    t.index ["user_id"], name: "index_exercise_executions_on_user_id"
     t.index ["workout_execution_id"], name: "index_exercise_executions_on_workout_execution_id"
   end
 
@@ -64,6 +66,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_032919) do
     t.bigint "exercise_execution_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "finished_at"
     t.index ["exercise_execution_id"], name: "index_set_executions_on_exercise_execution_id"
   end
 
@@ -85,6 +88,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_032919) do
   end
 
   add_foreign_key "exercise_executions", "exercises"
+  add_foreign_key "exercise_executions", "users"
   add_foreign_key "exercise_executions", "workout_executions"
   add_foreign_key "set_executions", "exercise_executions"
   add_foreign_key "workout_executions", "users"
