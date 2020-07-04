@@ -3,11 +3,16 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      namespace :exercises do
-        resources :search, only: %i(create)
+      resources :exercises, only: %i() do
+        resource :previous_execution_summary, only: %i(show), controller: 'exercises/previous_execution_summary'
+      end
+
+      resource :exercises, only: %i() do
+        resource :search, only: %i(create), controller: 'exercises/search'
       end
 
       resources :exercise_executions, only: %i(create show update destroy)
+
       resources :sessions, only: %i(create)
       resources :set_executions, only: %i(create update destroy)
       resources :users, only: %i(create)

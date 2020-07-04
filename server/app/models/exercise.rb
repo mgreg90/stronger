@@ -26,4 +26,11 @@ class Exercise < ApplicationRecord
     end
     self.exercise_types = ex_types
   end
+
+  def to_previous_execution_summary user
+    NonDbModels::PreviousExerciseExecutionSummary.new(
+      user: user,
+      exercise: self
+    )
+  end
 end
