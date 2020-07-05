@@ -48,3 +48,7 @@
 - :name: DB Romanian Deadlift
   :exercise_type_codes:
   - PULL
+
+- :name: Cable Row
+  :exercise_type_codes:
+  - PULL
