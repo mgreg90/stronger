@@ -27,7 +27,7 @@ const data = () => ({
 
 const handleSuccess = (response) => {
   appStorage.setToken(response.body.token);
-  router.push({ path: 'home' });
+  router.push({ path: 'history' });
 };
 
 const methods = {

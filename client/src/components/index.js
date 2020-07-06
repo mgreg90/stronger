@@ -1,5 +1,6 @@
 export { default as AppButton } from '@/components/AppButton.vue';
 export { default as AppHeader } from '@/components/AppHeader.vue';
+export { default as BottomNav } from '@/components/BottomNav.vue';
 export { default as BannerHeader } from '@/components/BannerHeader.vue';
 export { default as FloatingButton } from '@/components/FloatingButton.vue';
 export { default as Form } from '@/components/Form.vue';
