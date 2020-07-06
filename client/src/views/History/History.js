@@ -1,11 +1,13 @@
-import AppHeader from '@/components/AppHeader.vue';
-import AppButton from '@/components/AppButton.vue';
+import {
+  AppButton,
+  AppHeader,
+} from '@/components';
 import WorkoutExecutionsController from '@/api/v1/controllers/WorkoutExecutionsController';
 import apiUtils from '@/utils/apiUtils';
 
 const components = {
-  AppHeader,
   AppButton,
+  AppHeader,
 };
 
 const data = () => ({

@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
+    <bottom-nav v-if="!skipBottomNav"/>
   </div>
 </template>
 
@@ -28,4 +29,21 @@
 </style>
 
 <script>
+import { BottomNav } from '@/components';
+
+const components = {
+  BottomNav,
+};
+
+const computed = {
+  skipBottomNav() {
+    return this.$route.meta?.skipNav;
+  },
+};
+
+export default {
+  name: 'App',
+  components,
+  computed,
+};
 </script>

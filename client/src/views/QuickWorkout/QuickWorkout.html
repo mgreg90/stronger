@@ -1,0 +1,120 @@
+<div class="workout-view">
+  <app-header text="Quick Workout"/>
+  <div class="workout-view-container">
+    <modal ref="setExecutionModal" @onClose="handleModalClose">
+      <template v-slot:header>
+        {{ modalHeader }}
+      </template>
+      <template v-slot:body>
+        <div class="modal-body">
+          <div class="modal-body-item">
+            <p>Weight</p>
+            <div class="modal-text-input-wrapper">
+              <text-input
+                v-model="editingSet.weight"
+                type="number"
+                center-text
+              />
+            </div>
+          </div>
+          <div class="modal-body-item">
+            <p>Reps</p>
+            <div class="modal-text-input-wrapper">
+              <text-input
+                v-model="editingSet.reps"
+                type="number"
+                center-text
+              />
+            </div>
+          </div>
+        </div>
+      </template>
+      <template v-slot:footer>
+        <div class="modal-button-wrapper">
+          <app-button
+            v-if="isModalEdit"
+            label="Delete"
+            type="btn-outline-danger"
+            @clicked="handleDeleteEditingSetClick"
+          />
+          <app-button label="Save" @clicked="handleSaveEditingSetClick"/>
+        </div>
+      </template>
+    </modal>
+    <div class="body" >
+      <div class="no-exercises-msg" v-if="!exerciseExecutions.length">
+        <p>
+          Press ➕ to add exercises
+        </p>
+      </div>
+      <div
+        class="exercise-item-container"
+        v-else
+        v-for="(exerciseExecution, exerciseIndex) in exerciseExecutions"
+        :key="exerciseExecution.id"
+      >
+        <div class="drag-icon">
+          <i class="material-icons md-24">drag_handle</i>
+        </div>
+        <transition name="slide-right">
+          <div
+            v-if="exerciseHasDelete(exerciseExecution)"
+            @click="handleDeleteExerciseClick(exerciseExecution)"
+            class="delete-exercise"
+          >
+            <i class="material-icons md-36">remove_circle_outline</i>
+          </div>
+        </transition>
+        <div class="details"
+          v-touch:swipe.right="handleExerciseSwipeRight(exerciseExecution)"
+          v-touch:swipe.left="handleExerciseSwipeLeft(exerciseExecution)"
+        >
+          <div class="name">
+            <p>{{ellipsis(exerciseExecution.exercise.name)}}</p>
+          </div>
+          <div v-if="previousSummaryFor(exerciseExecution)" class="description">
+            <p>Previously: {{ previousSummaryFor(exerciseExecution).date }}</p>
+            <p>Sets: {{ previousSummaryFor(exerciseExecution).numSets }} | Reps: {{ previousSummaryFor(exerciseExecution).minReps }} - {{ previousSummaryFor(exerciseExecution).maxReps }}</p>
+            <p>Wt: {{ previousSummaryFor(exerciseExecution).minWeight }} - {{ previousSummaryFor(exerciseExecution).maxWeight }}</p>
+          </div>
+        </div>
+        <div class="sets">
+          <div
+            class="set-item"
+            v-for="(setExecution, setIndex) in exerciseExecution.setExecutions"
+            @click="handleSetClick(exerciseIndex, setIndex, setExecution)"
+            v-long-press="1500"
+            @long-press-start="handleSetLongClick(setExecution)"
+            :key="setExecution.id"
+          >
+            <div class="set-item-weight detail">
+              <p class="unselectable">{{setExecution.weight}} lbs</p>
+            </div>
+            <div class="set-item-reps detail">
+              <p class="unselectable">{{setExecution.reps}} reps</p>
+            </div>
+            <div class="set-item-icon detail">
+              <i v-if="setExecution.status === 'completed'" class="material-icons md-18 set-item-completed">check_circle</i>
+              <i v-else-if="isNext(setExecution, exerciseIndex)" class="material-icons md-18 set-item-next">play_circle_outline</i>
+              <i v-else-if="setExecution.status === 'pending'" class="material-icons md-18 set-item-pending">pending</i>
+            </div>
+          </div>
+          <div class="set-item" @click=handleAddSetClick(exerciseExecution)>
+            <p class="add-set-text">Add Set</p>
+            <i class="add-set-button material-icons md-18">add_circle</i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="floating-btn-container">
+      <floating-button @clicked="goToAddExercise" v-if="!workout.finishedAt" />
+    </div>
+    <div v-if="!workout.finishedAt" class="submit-button">
+      <app-button
+        label="Complete Workout"
+        block
+        @clicked="handleWorkoutCompleted"
+      />
+    </div>
+  </div>
+</div>
