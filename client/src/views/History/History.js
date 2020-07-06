@@ -1,6 +1,7 @@
 import {
   AppButton,
   AppHeader,
+  HistoryCard,
 } from '@/components';
 import WorkoutExecutionsController from '@/api/v1/controllers/WorkoutExecutionsController';
 import apiUtils from '@/utils/apiUtils';
@@ -8,6 +9,7 @@ import apiUtils from '@/utils/apiUtils';
 const components = {
   AppButton,
   AppHeader,
+  HistoryCard,
 };
 
 const data = () => ({

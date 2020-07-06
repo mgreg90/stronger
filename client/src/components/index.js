@@ -9,3 +9,5 @@ export { default as Modal } from '@/components/Modal.vue';
 export { default as RedirectDisclaimer } from '@/components/RedirectDisclaimer.vue';
 export { default as SetListItem } from '@/components/SetListItem.vue';
 export { default as TextInput } from '@/components/TextInput.vue';
+export { default as HistoryCard } from '@/components/HistoryCard.vue';
+export { default as QuickWorkoutExercise } from '@/components/QuickWorkoutExercise.vue';

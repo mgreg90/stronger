@@ -50,6 +50,12 @@ HTML
 
 File.open(dir.join("#{name}.vue"), 'w+') { |f| f.write(vue_template) }
 
+import_template = <<~JS
+export { default as #{name} } from '@/components/#{name}.vue';
+JS
+
+File.open(dir.join('index.js'), 'a') { |f| f.write(import_template) }
+
 
 puts "Created:".green.bold
 files.each { |f| puts " - #{dir.join(f)}".light_blue.bold}

@@ -3,6 +3,7 @@ import {
   AppHeader,
   FloatingButton,
   Modal,
+  QuickWorkoutExercise,
   TextInput,
 } from '@/components';
 import ExerciseExecutionsController from '@/api/v1/controllers/ExerciseExecutionsController';
@@ -23,6 +24,7 @@ const components = {
   AppButton,
   FloatingButton,
   Modal,
+  QuickWorkoutExercise,
   TextInput,
 };
 

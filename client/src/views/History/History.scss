@@ -1,7 +1,11 @@
-.home-view {
+.history-view {
   height: 100vh;
+  background: $grey;
 
-  .home-container {
+  .history-container {
     height: calc(100% - 120px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 }
