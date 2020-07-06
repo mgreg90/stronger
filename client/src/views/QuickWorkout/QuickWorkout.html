@@ -50,7 +50,11 @@
       <quick-workout-exercise
         v-else
         v-for="(exerciseExecution, exerciseIndex) in exerciseExecutions"
+        :exerciseExecution="exerciseExecution"
         :key="exerciseExecution.id"
+        :previousSummary="previousSummaryFor(exerciseExecution)"
+        :isNext="isNext(exerciseExecution, exerciseIndex)"
+        @longClick="handleSetLongClick(exerciseExecution)"
       />
     </div>
     <div class="floating-btn-container">
