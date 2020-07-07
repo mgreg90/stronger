@@ -52,3 +52,6 @@
 - :name: Cable Row
   :exercise_type_codes:
   - PULL
+- :name: DB Shrug
+  :exercise_type_codes:
+  - PULL

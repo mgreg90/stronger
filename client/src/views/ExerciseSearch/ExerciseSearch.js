@@ -48,6 +48,11 @@ const methods = {
 
     this.$router.push(route);
   },
+
+  backButtonPath() {
+    const { workoutId } = this.$route.params;
+    return `/workouts/${workoutId}`;
+  },
 };
 
 export default {

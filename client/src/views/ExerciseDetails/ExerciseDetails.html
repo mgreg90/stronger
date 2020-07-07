@@ -1,5 +1,9 @@
 <div class="exerciseDetails-view">
-  <app-header :text="trimmedExerciseName"/>
+  <app-header
+    :text="trimmedExerciseName"
+    :back-button-path="backButtonPath()"
+    @onBackClicked="onBackClicked()"
+  />
   <div class="body">
     <div class="content">
       <set-list-item v-for="(set, index) in sets" :key="set.key" :set="set" :index="index"/>

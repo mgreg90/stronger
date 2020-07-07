@@ -2,7 +2,7 @@
   .workout-view-container {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 120px);
+    min-height: calc(100vh - 60px);
 
     .modal-body {
       display: flex;
@@ -213,6 +213,7 @@
     
     .submit-button {
       flex-shrink: 0;
+      margin-bottom: 60px;
     }
   }
 }
