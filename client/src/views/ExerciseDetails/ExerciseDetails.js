@@ -31,30 +31,65 @@ const data = () => ({
   sets: [buildSet()],
 });
 
+const handleErrors = (self, response) => {
+  if (!apiUtils.isRequestSuccessful(response)) {
+    apiUtils.handleErrors(self, response);
+    return false;
+  }
+  return true;
+};
+
+const tryDeleteExercise = async (self) => {
+  const { exerciseExecutionId } = self.$route.params;
+  const response = await ExerciseExecutionsController.delete(exerciseExecutionId);
+
+  const isSuccessful = handleErrors(self, response, false);
+  if (!isSuccessful) return false;
+
+  return true;
+};
+
+const tryCreateSet = async (self) => {
+  const { exerciseExecutionId } = self.$route.params;
+  const sets = self.$data.sets.map((set) => ({
+    weight: parseInt(set.weight, 10),
+    reps: parseInt(set.reps, 10),
+    exerciseExecutionId,
+    status: 'pending',
+  }));
+
+  const response = await SetExecutionsController.create(sets);
+
+  if (!apiUtils.isRequestSuccessful(response)) {
+    apiUtils.handleErrors(self, response);
+    return false;
+  }
+
+  return true;
+};
+
 const methods = {
   addNewSet() {
     const prevSet = arrayUtils.last(this.$data.sets);
     this.$data.sets.push(buildSet(prevSet));
   },
+
   async handleSubmit() {
-    const { exerciseExecutionId, workoutId } = this.$route.params;
-    const sets = this.$data.sets.map((set) => ({
-      weight: parseInt(set.weight, 10),
-      reps: parseInt(set.reps, 10),
-      exerciseExecutionId,
-      status: 'pending',
-    }));
+    const isSuccessful = await tryCreateSet(this);
+    if (!isSuccessful) return;
 
-    const response = await SetExecutionsController.create(sets);
-
-    if (!apiUtils.isRequestSuccessful(response)) {
-      apiUtils.handleErrors(this, response);
-      return;
-    }
-
-    const route = `/workouts/${workoutId}`;
+    const route = `/workouts/${this.$route.params.workoutId}`;
 
     this.$router.push(route);
+  },
+
+  backButtonPath() {
+    const { workoutId } = this.$route.params;
+    return `/workouts/${workoutId}/exercises/search`;
+  },
+
+  onBackClicked() {
+    tryDeleteExercise(this);
   },
 };
 

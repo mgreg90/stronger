@@ -17,6 +17,10 @@ const props = {
     type: Boolean,
     default: true,
   },
+  backButtonPath: {
+    type: String,
+    default: null,
+  },
 };
 
 const components = {
@@ -24,7 +28,13 @@ const components = {
 
 const methods = {
   handleBackClick() {
-    this.$router.go(-1);
+    this.$emit('onBackClicked');
+
+    if (this.backButtonPath) {
+      this.$router.push(this.backButtonPath);
+    } else {
+      this.$router.go(-1);
+    }
   },
 };
 
