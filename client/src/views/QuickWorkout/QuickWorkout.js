@@ -283,7 +283,7 @@ const methods = {
   async handleWorkoutCompleted() {
     const isWorkoutFinished = await tryFinishWorkout(this);
     if (isWorkoutFinished) {
-      this.$router.push('/history');
+      this.$router.push({ path: '/history', query: { clearTabHistory: true } });
     }
   },
 

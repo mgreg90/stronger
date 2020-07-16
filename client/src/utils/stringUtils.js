@@ -4,8 +4,14 @@ const ellipsis = (str, len) => {
   return `${shortenedStr}...`;
 };
 
+const pathStart = (str) => {
+  const path = str.startsWith('/') ? str.replace('/', '') : str;
+  return path.split('/')[0];
+};
+
 const stringUtils = {
   ellipsis,
+  pathStart,
 };
 
 export default stringUtils;

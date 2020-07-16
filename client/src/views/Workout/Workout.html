@@ -1,6 +1,16 @@
 <div class="home-view">
   <app-header :backButton="false"/>
   <div class="home-container d-flex justify-content-center align-items-center">
-    <app-button label="Quick Workout" @clicked="goToQuickWorkout"/>
+    <app-button
+      v-if="currentWorkout"
+      label="Continue Workout"
+      @clicked="goToCurrentWorkout"
+      color="green"
+    />
+    <app-button
+      v-else
+      label="Quick Workout"
+      @clicked="goToQuickWorkout"
+    />
   </div>
 </div>

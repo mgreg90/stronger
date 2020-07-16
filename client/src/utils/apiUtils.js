@@ -1,5 +1,7 @@
 import toasts from './toasts';
 
+const isNotFound = (resp) => resp.status === 404;
+
 const isRequestSuccessful = (resp) =>
   resp && resp.status >= 200 && resp.status < 300;
 
@@ -20,6 +22,7 @@ const handleErrors = (model, response) => {
 };
 
 const apiUtils = {
+  isNotFound,
   isRequestSuccessful,
   handleErrors,
 };
