@@ -2,7 +2,10 @@ import {
   AppButton,
   AppHeader,
 } from '@/components';
-import WorkoutExecutionsController from '@/api/v1/controllers/WorkoutExecutionsController';
+import {
+  ActivityHistoryController,
+  WorkoutExecutionsController,
+} from '@/api/v1/controllers';
 import apiUtils from '@/utils/apiUtils';
 
 const components = {
@@ -11,7 +14,7 @@ const components = {
 };
 
 const data = () => ({
-
+  workoutExecutions: [],
 });
 
 const createWorkout = async () => {
@@ -19,6 +22,18 @@ const createWorkout = async () => {
 
   if (!apiUtils.isRequestSuccessful(response)) {
     apiUtils.handleErrors(this, response);
+    return null;
+  }
+  return response.body;
+};
+
+const fetchActivityHistory = async (self) => {
+  const response = await ActivityHistoryController.get();
+  console.log('response', response);
+  if (apiUtils.isNotFound(response)) return null;
+
+  if (!apiUtils.isRequestSuccessful(response)) {
+    apiUtils.handleErrors(self, response);
     return null;
   }
   return response.body;
@@ -34,9 +49,15 @@ const methods = {
   },
 };
 
+async function mounted() {
+  const history = await fetchActivityHistory(this);
+  this.$data.workoutExecutions.push(history);
+}
+
 export default {
   name: 'Home',
   components,
   data,
   methods,
+  mounted,
 };

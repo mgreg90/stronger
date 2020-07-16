@@ -25,13 +25,13 @@ const createWorkout = async () => {
   return response.body;
 };
 
-const fetchCurrentWorkout = async () => {
+const fetchCurrentWorkout = async (self) => {
   const response = await CurrentWorkoutController.get();
 
   if (apiUtils.isNotFound(response)) return null;
 
   if (!apiUtils.isRequestSuccessful(response)) {
-    apiUtils.handleErrors(this, response);
+    apiUtils.handleErrors(self, response);
     return null;
   }
   return response.body;
@@ -53,7 +53,7 @@ const methods = {
 };
 
 async function mounted() {
-  const currentWorkout = await fetchCurrentWorkout();
+  const currentWorkout = await fetchCurrentWorkout(this);
   if (!currentWorkout) return;
   this.$set(this, 'currentWorkout', currentWorkout);
 }

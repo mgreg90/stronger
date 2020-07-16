@@ -4,6 +4,9 @@ class WorkoutExecution < ApplicationRecord
 
   has_many :exercise_executions
 
+  default_scope -> { order_by_latest }
+
   scope :active, -> { where finished_at: nil }
-  scope :default_order, -> { order :created_at }
+  scope :completed, -> { where.not finished_at: nil }
+  scope :order_by_latest, -> { order created_at: :desc }
 end
