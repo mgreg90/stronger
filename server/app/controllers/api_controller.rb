@@ -6,11 +6,18 @@ class ApiController < ActionController::API
     AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR'
   end
 
+  ERROR_MAP = {
+    ActiveRecord::RecordInvalid => :render_validation_error,
+    ActiveRecord::RecordNotFound => :render_not_found_error,
+  }
+  DEFAULT_ERROR_HANDLER = :render_internal_server_error
+
   before_action :snake_case_params!
 
-  rescue_from ActiveRecord::RecordInvalid, with: :render_validation_error
-  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_error
-  rescue_from StandardError, with: :render_internal_server_error
+  # rescue_from ActiveRecord::RecordInvalid, with: :render_validation_error
+  # rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_error
+  # rescue_from StandardError, with: :render_internal_server_error
+  rescue_from StandardError, with: :handle_errors
 
   def command_error_json command, status: :unprocessable_entity
     errors = command.errors.map do |err, msgs|
@@ -31,6 +38,11 @@ class ApiController < ActionController::API
 
   private
 
+  def handle_errors exception
+    handler = ERROR_MAP[exception.class] || DEFAULT_ERROR_HANDLER
+    method(handler).call(exception)
+  end
+
   def render_validation_error exception
     log_error(exception)
     body = build_record_error(ErrorCodes::VALIDATION_ERROR, exception)
@@ -39,7 +51,7 @@ class ApiController < ActionController::API
 
   def render_not_found_error exception
     log_error(exception)
-    body = build_record_error(ErrorCodes::NOT_FOUND_ERROR, exception)
+    body = build_generic_error(ErrorCodes::NOT_FOUND_ERROR, exception)
     render json: body, status: :not_found
   end
 

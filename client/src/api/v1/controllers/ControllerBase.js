@@ -77,6 +77,7 @@ const v1Delete = async (path) => {
 };
 
 const controllerBase = {
+  V1_CURRENT_WORKOUT_PATH: 'v1/current_workout',
   V1_EXERCISE_EXECUTIONS_PATH: 'v1/exercise_executions',
   V1_EXERCISES_SEARCH_PATH: 'v1/exercises/search',
   V1_SESSIONS_PATH: 'v1/sessions',

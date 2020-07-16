@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import { stringUtils } from '@/utils';
+
 const props = {
 };
 
@@ -79,20 +81,19 @@ const data = () => ({
 const components = {
 };
 
-const pathStart = (self) => self.$route.path.replace(/^\//, '').split('/')[0];
-
-const setPreviousUrl = (self) => {
-  const currentSelection = pathStart(self);
+const setPreviousUrl = (self, path) => {
+  const currentSelection = stringUtils.pathStart(path);
   const key = `${currentSelection}UrlPath`;
-  self.$set(self, key, self.$route.fullPath);
+  self.$set(self, key, path);
+};
+
+const clearPreviousUrl = (self, path) => {
+  const currentSelection = stringUtils.pathStart(path);
+  const key = `${currentSelection}UrlPath`;
+  self.$set(self, key, '');
 };
 
 const goTo = (self, path) => {
-  if (self.selected === path) return;
-
-  setPreviousUrl(self);
-  self.$set(self, 'selected', path);
-
   const previousUrlPath = self[`${path}UrlPath`];
 
   if (previousUrlPath.length) {
@@ -121,8 +122,25 @@ const methods = {
 };
 
 function mounted() {
-  this.$set(this, 'selected', pathStart(this));
+  const pathStart = stringUtils.pathStart(this.$route.path);
+  this.$set(this, 'selected', pathStart || 'history');
 }
+
+const watch = {
+  $route(to, from) {
+    const toPathStart = stringUtils.pathStart(to.path);
+
+    if (this.selected === toPathStart) return;
+
+    if (this.$route.query?.clearTabHistory) {
+      clearPreviousUrl(this, from.fullPath);
+    } else {
+      setPreviousUrl(this, from.fullPath);
+    }
+
+    this.$set(this, 'selected', toPathStart);
+  },
+};
 
 export default {
   name: 'BottomNav',
@@ -131,6 +149,7 @@ export default {
   components,
   methods,
   mounted,
+  watch,
 };
 </script>
 
