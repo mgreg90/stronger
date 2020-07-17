@@ -3,5 +3,8 @@
 
   .home-container {
     height: calc(100% - 120px);
+    overflow-y: scroll;
+    background-color: $grey;
+    padding-bottom: 20px;
   }
 }

@@ -3,5 +3,6 @@ class ExerciseBlueprint < AppBlueprinterBase
 
   view :normal do
     fields :name
+    association :exercise_types, blueprint: ExerciseTypeBlueprint, view: :normal
   end
 end

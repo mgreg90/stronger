@@ -2,9 +2,11 @@
 - :name: Push Up
   :exercise_type_codes:
   - PUSH
+
 - :name: DB Standing Shoulder Press
   :exercise_type_codes:
   - PUSH
+
 - :name: DB Skullcrusher
   :exercise_type_codes:
   - PUSH
@@ -12,9 +14,11 @@
 - :name: Pull Up
   :exercise_type_codes:
   - PULL
+
 - :name: Standing DB Row
   :exercise_type_codes:
   - PULL
+
 - :name: DB Curl
   :exercise_type_codes:
   - PULL
@@ -22,6 +26,7 @@
 - :name: Chloe Ting - Abs Workout 🔥Get that 11 Line Abs in 35 days
   :exercise_type_codes:
   - CORE
+
 - :name: Chloe Ting - Get Abs in 2 WEEKS | Abs Workout Challenge
   :exercise_type_codes:
   - CORE
@@ -29,6 +34,7 @@
 - :name: BB Bench Press
   :exercise_type_codes:
   - PUSH
+
 - :name: BB Squat
   :exercise_type_codes:
   - PUSH
@@ -38,6 +44,7 @@
 - :name: Tricep Pushdown
   :exercise_type_codes:
   - PUSH
+
 - :name: Inverted Row
   :exercise_type_codes:
   - PULL
@@ -45,6 +52,7 @@
 - :name: Goblet Squat
   :exercise_type_codes:
   - PUSH
+
 - :name: DB Romanian Deadlift
   :exercise_type_codes:
   - PULL
@@ -52,6 +60,15 @@
 - :name: Cable Row
   :exercise_type_codes:
   - PULL
+
 - :name: DB Shrug
+  :exercise_type_codes:
+  - PULL
+
+- :name: Duck Walk
+  :exercise_type_codes:
+  - PUSH
+
+- :name: Single Leg Romanian Deadlift
   :exercise_type_codes:
   - PULL

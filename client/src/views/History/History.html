@@ -1,6 +1,10 @@
 <div class="home-view">
   <app-header :backButton="false"/>
-  <div class="home-container d-flex justify-content-center align-items-center">
-    History View
+  <div class="home-container d-flex flex-column justify-content-start align-items-center">
+      <history-card
+        v-for="workoutExecution in workoutExecutions"
+        :key="workoutExecution.id"
+        :workout="workoutExecution"
+      />
   </div>
 </div>
