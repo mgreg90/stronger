@@ -1,4 +1,4 @@
-import { stringUtils } from '@/utils';
+import stringUtils from '@/utils/stringUtils';
 
 const formattedDateFromString = (strDateTime) => {
   const date = new Date(strDateTime);
