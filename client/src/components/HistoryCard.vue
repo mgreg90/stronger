@@ -55,7 +55,7 @@ const minMaxFor = (field, exerciseExecution) => {
 
 const methods = {
   nameFor(exerciseExecution) {
-    return stringUtils.ellipsis(exerciseExecution.exercise.name, 22);
+    return stringUtils.ellipsis(exerciseExecution.exercise.name, 20);
   },
   repRangeFor(exerciseExecution) {
     const [minReps, maxReps] = minMaxFor('reps', exerciseExecution);
