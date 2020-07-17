@@ -12,6 +12,7 @@ class CreateHistory
     return WorkoutExecution
       .where(user: user)
       .completed
+      .with_sets
       .page(page)
       .per(WORKOUT_EXECUTIONS_PER_PAGE)
   end

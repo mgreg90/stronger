@@ -11,7 +11,7 @@ class Api::V1::WorkoutExecutionsController < AuthenticatedApiController
 
     if params[:with_set_executions].to_bool
       view = :extended
-      workout = workout.includes(exercise_executions: [:exercise, :set_executions])
+      workout = workout.with_sets
     end
 
     workout = workout.find(params[:id])

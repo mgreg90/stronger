@@ -326,7 +326,7 @@ const getPreviousExerciseExecutionSummaries = async (self, exerciseIds) => {
 
     return {
       ...body,
-      date: dateTimeUtils.localDateFromString(body.date),
+      date: dateTimeUtils.formattedDateFromString(body.date),
     };
   });
 

@@ -1,7 +1,8 @@
 class Api::V1::ActivityHistoryController < AuthenticatedApiController
   def show
-    ahist = CreateHistory.(user: current_user).result
+    hist = CreateHistory.(user: current_user).result
+    result = WorkoutExecutionBlueprint.render(hist, view: :extended)
 
-    render json: ahist, status: :ok
+    render json: result, status: :ok
   end
 end

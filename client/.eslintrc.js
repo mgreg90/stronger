@@ -15,5 +15,6 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'implicit-arrow-linebreak': 'off',
     'no-plusplus': 'off',
+    'no-confusing-arrow': 'off',
   },
 };

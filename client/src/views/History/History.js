@@ -1,6 +1,7 @@
 import {
   AppButton,
   AppHeader,
+  HistoryCard,
 } from '@/components';
 import {
   ActivityHistoryController,
@@ -11,6 +12,7 @@ import apiUtils from '@/utils/apiUtils';
 const components = {
   AppButton,
   AppHeader,
+  HistoryCard,
 };
 
 const data = () => ({
@@ -51,11 +53,11 @@ const methods = {
 
 async function mounted() {
   const history = await fetchActivityHistory(this);
-  this.$data.workoutExecutions.push(history);
+  this.$data.workoutExecutions.push(...history);
 }
 
 export default {
-  name: 'Home',
+  name: 'History',
   components,
   data,
   methods,
