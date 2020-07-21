@@ -1,10 +1,15 @@
 <div class="home-view">
   <app-header :backButton="false"/>
-  <div class="home-container d-flex flex-column justify-content-start align-items-center">
-      <history-card
-        v-for="workoutExecution in workoutExecutions"
-        :key="workoutExecution.id"
-        :workout="workoutExecution"
-      />
+  <div
+    v-on:scroll="handleScroll"
+    ref="home-container"
+    class="home-container d-flex flex-column justify-content-start align-items-center"
+  >
+    <history-card
+      v-for="workoutExecution in workoutExecutions"
+      :key="workoutExecution.id"
+      :workout="workoutExecution"
+    />
+    <loading class="spinner" :active.sync="isFetching" color="#3E92CC"></loading>
   </div>
 </div>

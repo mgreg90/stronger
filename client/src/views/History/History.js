@@ -1,8 +1,5 @@
-import {
-  AppButton,
-  AppHeader,
-  HistoryCard,
-} from '@/components';
+import Loading from 'vue-loading-overlay';
+import { AppButton, AppHeader, HistoryCard } from '@/components';
 import {
   ActivityHistoryController,
   WorkoutExecutionsController,
@@ -13,10 +10,14 @@ const components = {
   AppButton,
   AppHeader,
   HistoryCard,
+  Loading,
 };
 
 const data = () => ({
   workoutExecutions: [],
+  isFetching: false,
+  lastPage: 0,
+  allHistoryFetched: false,
 });
 
 const createWorkout = async () => {
@@ -29,8 +30,12 @@ const createWorkout = async () => {
   return response.body;
 };
 
-const fetchActivityHistory = async (self) => {
-  const response = await ActivityHistoryController.get();
+const fetchActivityHistory = async (self, page = 1) => {
+  if (self.allHistoryFetched || self.isFetching) return null;
+
+  self.$set(self, 'isFetching', true);
+  const response = await ActivityHistoryController.get({ page });
+  self.$set(self, 'isFetching', false);
 
   if (apiUtils.isNotFound(response)) return null;
 
@@ -38,6 +43,10 @@ const fetchActivityHistory = async (self) => {
     apiUtils.handleErrors(self, response);
     return null;
   }
+
+  if (response.body.length < 5) self.$set(self, 'allHistoryFetched', true);
+
+  self.$set(self, 'lastPage', page);
   return response.body;
 };
 
@@ -49,10 +58,19 @@ const methods = {
   goToBuildWorkoutPlan() {
     this.$router.push('/workoutPlan/new');
   },
+  async handleScroll() {
+    const homeContainer = this.$refs['home-container'];
+    if (homeContainer.offsetHeight + homeContainer.scrollTop < homeContainer.scrollHeight) return;
+
+    const history = await fetchActivityHistory(this, this.lastPage + 1);
+    if (!history) return;
+    this.$data.workoutExecutions.push(...history);
+  },
 };
 
 async function mounted() {
   const history = await fetchActivityHistory(this);
+  if (!history) return;
   this.$data.workoutExecutions.push(...history);
 }
 

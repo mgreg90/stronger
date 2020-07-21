@@ -6,5 +6,9 @@
     overflow-y: scroll;
     background-color: $grey;
     padding-bottom: 20px;
+
+    .spinner {
+      margin: 10px 0;
+    }
   }
 }

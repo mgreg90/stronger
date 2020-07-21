@@ -5,7 +5,7 @@ export { default as BannerHeader } from '@/components/BannerHeader.vue';
 export { default as FloatingButton } from '@/components/FloatingButton.vue';
 export { default as Form } from '@/components/Form.vue';
 export { default as FormHeader } from '@/components/FormHeader.vue';
-export { default as HistoryCard } from '@/components/HistoryCard.vue';
+export { default as HistoryCard } from '@/components/HistoryCard/index.vue';
 export { default as Modal } from '@/components/Modal.vue';
 export { default as RedirectDisclaimer } from '@/components/RedirectDisclaimer.vue';
 export { default as SetListItem } from '@/components/SetListItem.vue';
