@@ -39,6 +39,12 @@
   :exercise_type_codes:
   - PUSH
 
+- :name: Bodyweight Squat
+  :exercise_type_codes:
+  - PUSH
+  - PULL
+  - CORE
+
 - :name: BB Squat
   :exercise_type_codes:
   - PUSH

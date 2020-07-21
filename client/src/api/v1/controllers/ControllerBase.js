@@ -35,7 +35,7 @@ const v1Get = async (path, payload) => {
   return { status: response.status, body };
 };
 
-const v1Post = async (path, payload) => {
+const v1Post = async (path, payload = {}) => {
   const headers = standardHeaders();
   const response = await fetch(
     `${BASE_API_URL}${path}`, {
@@ -86,6 +86,7 @@ const controllerBase = {
   V1_USERS_PATH: 'v1/users',
   V1_WORKOUT_EXECUTIONS_PATH: 'v1/workout_executions',
   v1ExercisePreviousExecutionSummaryPath: (exerciseId) => `v1/exercises/${exerciseId}/previous_execution_summary`,
+  v1WorkoutExecutionsRepeatPath: (workoutExecutionId) => `v1/workout_executions/${workoutExecutionId}/repeat`,
 
   v1Delete,
   v1Get,

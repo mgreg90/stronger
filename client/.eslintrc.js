@@ -16,5 +16,6 @@ module.exports = {
     'implicit-arrow-linebreak': 'off',
     'no-plusplus': 'off',
     'no-confusing-arrow': 'off',
+    'import/prefer-default-export': 'off',
   },
 };

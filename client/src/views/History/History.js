@@ -31,7 +31,7 @@ const createWorkout = async () => {
 
 const fetchActivityHistory = async (self) => {
   const response = await ActivityHistoryController.get();
-  console.log('response', response);
+
   if (apiUtils.isNotFound(response)) return null;
 
   if (!apiUtils.isRequestSuccessful(response)) {
