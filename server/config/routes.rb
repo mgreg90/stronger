@@ -18,7 +18,9 @@ Rails.application.routes.draw do
       resources :sessions, only: %i(create)
       resources :set_executions, only: %i(create update destroy)
       resources :users, only: %i(create)
-      resources :workout_executions, only: %i(create show update)
+      resources :workout_executions, only: %i(create show update) do
+        resource :repeat, only: %i(create), controller: 'workout_executions/repeat'
+      end
     end
   end
   

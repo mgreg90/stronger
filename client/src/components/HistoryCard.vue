@@ -1,9 +1,33 @@
 <template>
 <div class="card">
   <div class="card-body">
-    <h5 class="card-title">{{workoutType}} - {{workoutDate}}</h5>
-    <h6 class="card-subtitle mb-3 text-muted"><span class="clock">⏱</span> {{workoutDuration}}</h6>
-    <!-- <h6 class="card-subtitle mb-2 text-muted">Exercises</h6> -->
+    <div class="header-container">
+      <div class="title-container">
+        <h5 class="card-title">{{workoutType}} - {{workoutDate}}</h5>
+        <h6 class="card-subtitle mb-3 text-muted">
+          <span class="clock">⏱</span> {{workoutDuration}}
+        </h6>
+      </div>
+      <div class="menu">
+        <a class="menu-link" @click="toggleMenuDisplay" v-on-clickaway="closeMenuDisplay">
+          <i class="material-icons md-24">menu</i>
+        </a>
+        <div class="menu-list" v-if="isMenuDisplayed">
+          <div class="menu-list-item">
+            <a @click="goToWorkout">
+              <i class="material-icons md-24">list</i>
+              <p>Show Workout</p>
+            </a>
+          </div>
+          <div class="menu-list-item">
+            <a @click="goToQuickWorkoutFromTemplate">
+              <i class="material-icons md-24">play_arrow</i>
+              <p>Do this Workout</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="exercise-summary-container">
       <div class="row-labels">
         <div>Name</div>
@@ -31,17 +55,26 @@
 </template>
 
 <script>
-import { dateTimeUtils, stringUtils } from '../utils';
+import VueClickaway from 'vue-clickaway';
+import { apiUtils, dateTimeUtils, stringUtils } from '@/utils';
+import { WorkoutExecutionsRepeatController } from '@/api/v1/controllers';
 
 const props = {
   workout: {},
 };
+
+const mixins = [VueClickaway.mixin];
+
+const data = () => ({
+  isMenuDisplayed: false,
+});
 
 const components = {
 };
 
 const minMaxFor = (field, exerciseExecution) => {
   const completedSets = exerciseExecution.setExecutions.filter((se) => se.status === 'completed');
+  if (!completedSets?.[0]?.[field]) return [0, 0];
   let minVal = completedSets[0][field];
   let maxVal = completedSets[0][field];
 
@@ -53,7 +86,33 @@ const minMaxFor = (field, exerciseExecution) => {
   return [minVal, maxVal];
 };
 
+const createWorkoutExecutionRepeat = async (self) => {
+  const response = await WorkoutExecutionsRepeatController.create(self.workout.id);
+
+  if (!apiUtils.isRequestSuccessful(response)) {
+    apiUtils.handleErrors(self, response);
+    return null;
+  }
+  return response.body;
+};
+
 const methods = {
+  toggleMenuDisplay() {
+    const { isMenuDisplayed } = this;
+    this.$set(this, 'isMenuDisplayed', !isMenuDisplayed);
+  },
+  closeMenuDisplay() {
+    this.$set(this, 'isMenuDisplayed', false);
+  },
+  goToWorkout() {
+    this.$router.push(`/workouts/${this.workout.id}`);
+  },
+  async goToQuickWorkoutFromTemplate() {
+    const workoutExecution = await createWorkoutExecutionRepeat(this);
+    const { id } = workoutExecution;
+
+    this.$router.push(`/workouts/${id}`);
+  },
   nameFor(exerciseExecution) {
     return stringUtils.ellipsis(exerciseExecution.exercise.name, 20);
   },
@@ -141,10 +200,12 @@ const computed = {
 
 export default {
   name: 'HistoryCard',
+  data,
   props,
   components,
   computed,
   methods,
+  mixins,
 };
 </script>
 
@@ -154,17 +215,67 @@ export default {
   width: 90%;
   border: 1px solid $light-blue;
 
-  .card-title {
-    margin: auto 0;
-    padding-bottom: 10px;
-  }
+  .header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 
-  .card-subtitle {
-    margin: auto 0;
-    .clock {
-      font-size: 1.5rem;
+    .title-container {
+      .card-title {
+        margin: auto 0;
+        padding-bottom: 10px;
+      }
+
+      .card-subtitle {
+        margin: auto 0;
+        .clock {
+          font-size: 1.5rem;
+        }
+      }
+    }
+
+    .menu {
+      .menu-link {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .menu-list {
+        position: absolute;
+        right: 20px;
+        align-items: end;
+        border: $light-blue solid 1px;
+        padding: 2px 5px;
+        border-radius: 5px;
+        background-color: $grey;
+
+        .menu-list-item {
+          border-bottom: $light-blue 1px solid;
+          margin: auto 0;
+
+          a {
+            display: flex;
+            margin: 2px 0;
+
+            i {
+              margin-right: 5px;
+              position: relative;
+              top: 3px;
+            }
+
+            p {
+              margin: 5px 10px 0 2px;
+            }
+          }
+        }
+
+        .menu-list-item:last-child {
+          border: none;
+        }
+      }
     }
   }
+
 
   .exercise-summary-container {
     display: flex;

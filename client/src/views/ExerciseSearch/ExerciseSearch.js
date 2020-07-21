@@ -3,7 +3,7 @@ import debounce from 'lodash.debounce';
 import AppHeader from '@/components/AppHeader.vue';
 import TextInput from '@/components/TextInput.vue';
 import ExerciseExecutionsController from '@/api/v1/controllers/ExerciseExecutionsController';
-import ExercisesSearchController from '@/api/v1/controllers/exercises/SearchController';
+import ExercisesSearchController from '@/api/v1/controllers';
 import apiUtils from '@/utils/apiUtils';
 
 const components = {

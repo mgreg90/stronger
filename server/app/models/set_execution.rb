@@ -5,6 +5,19 @@ class SetExecution < ApplicationRecord
   before_create :generate_order
   before_save :set_finished_at
 
+  def build_repeat
+    repeat = self.dup
+    repeat.reset
+    repeat
+  end
+
+  def reset
+    %i(created_at updated_at finished_at exercise_execution_id).each do |field|
+      send("#{field}=", nil)
+    end
+    self.status = :pending
+  end
+
   private
 
   def generate_order
