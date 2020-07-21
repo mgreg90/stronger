@@ -1,0 +1,50 @@
+<div class="card">
+  <div class="card-body">
+    <div class="header-container">
+      <div class="title-container">
+        <h5 class="card-title">{{workoutType}} - {{workoutDate}}</h5>
+        <h6 class="card-subtitle mb-3 text-muted">
+          <span class="clock">⏱</span> {{workoutDuration}}
+        </h6>
+      </div>
+      <div class="menu">
+        <a class="menu-link" @click="toggleMenuDisplay" v-on-clickaway="closeMenuDisplay">
+          <i class="material-icons md-24">menu</i>
+        </a>
+        <div class="menu-list bg-light" v-if="isMenuDisplayed">
+          <div class="menu-list-item">
+            <a @click="goToWorkout">
+              <i class="material-icons md-24">list</i>
+              <p>Show Workout</p>
+            </a>
+          </div>
+          <div class="menu-list-item">
+            <a @click="goToQuickWorkoutFromTemplate">
+              <i class="material-icons md-24">play_arrow</i>
+              <p>Do this Workout</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="exercise-summary-container">
+      <div class="row-labels">
+        <div>Name</div>
+        <div>Sets</div>
+        <div>Reps</div>
+        <div>Weight</div>
+        <div>Total Reps</div>
+      </div>
+      <div class="set-summary-container">
+        <div v-for="exerciseExecution in workout.exerciseExecutions" :key="exerciseExecution.id"
+          class="exercise-summary">
+          <div>{{nameFor(exerciseExecution)}}</div>
+          <div>{{exerciseExecution.setExecutions.length}}</div>
+          <div>{{repRangeFor(exerciseExecution)}}</div>
+          <div>{{weightRangeFor(exerciseExecution)}}</div>
+          <div>{{totalRepsFor(exerciseExecution)}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
