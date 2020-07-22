@@ -1,6 +1,6 @@
 import VueClickaway from 'vue-clickaway';
 import { apiUtils, dateTimeUtils, stringUtils } from '@/utils';
-import { WorkoutExecutionsRepeatController } from '@/api/v1/controllers';
+import { workoutExecutions } from '@/api/v1/controllers';
 
 const props = {
   workout: {},
@@ -30,7 +30,7 @@ const minMaxFor = (field, exerciseExecution) => {
 };
 
 const createWorkoutExecutionRepeat = async (self) => {
-  const response = await WorkoutExecutionsRepeatController.create(self.workout.id);
+  const response = await workoutExecutions.RepeatController.create(self.workout.id);
 
   if (!apiUtils.isRequestSuccessful(response)) {
     apiUtils.handleErrors(self, response);
