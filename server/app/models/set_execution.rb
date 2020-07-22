@@ -5,6 +5,10 @@ class SetExecution < ApplicationRecord
   before_create :generate_order
   before_save :set_finished_at
 
+  default_scope -> { default_order }
+
+  scope :default_order, -> { order :order }
+
   def build_repeat
     repeat = self.dup
     repeat.reset

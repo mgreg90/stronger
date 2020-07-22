@@ -1,21 +1,14 @@
 import {
-  AppButton,
-  AppHeader,
-  FloatingButton,
-  Modal,
-  TextInput,
+  AppButton, AppHeader, FloatingButton, Modal, TextInput,
 } from '@/components';
-import ExerciseExecutionsController from '@/api/v1/controllers/ExerciseExecutionsController';
-import PreviousExecutionSummaryController from '@/api/v1/controllers/exercises/PreviousExecutionSummaryController';
-import SetExecutionsController from '@/api/v1/controllers/SetExecutionsController';
-import WorkoutExecutionsController from '@/api/v1/controllers/WorkoutExecutionsController';
 import {
-  apiUtils,
-  arrayUtils,
-  dateTimeUtils,
-  stringUtils,
+  ExerciseExecutionsController, exercises, SetExecutionsController, WorkoutExecutionsController,
+} from '@/api/v1/controllers';
+import {
+  apiUtils, arrayUtils, dateTimeUtils, stringUtils,
 } from '@/utils';
 
+import draggable from 'vuedraggable';
 import cloneDeep from 'lodash.clonedeep';
 
 const components = {
@@ -24,6 +17,7 @@ const components = {
   FloatingButton,
   Modal,
   TextInput,
+  draggable,
 };
 
 const data = () => ({
@@ -232,6 +226,8 @@ const methods = {
 
       const deleteIdx = this.deleteExerciseIds.findIndex((curId) => curId === id);
       this.deleteExerciseIds.splice(deleteIdx, 1);
+      const ees = this.workout.exerciseExecutions.map((ee, i) => ({ ...ee, order: i + 1 }));
+      this.workout.exerciseExecutions = ees;
     }
   },
 
@@ -315,10 +311,28 @@ const methods = {
 
     return summary;
   },
+
+  async recalculateExerciseExecutionOrder() {
+    const newOrder = this.workout.exerciseExecutions.map((ee, idx) => ({ ...ee, order: idx + 1 }));
+    const oldOrder = [...this.workout.exerciseExecutions].sort((a, b) => a.order - b.order);
+    const reducer = (acc, newEe) => {
+      const oldEe = oldOrder.find((ee) => ee.id === newEe.id);
+      if (oldEe.order !== newEe.order) {
+        const { order, id } = newEe;
+        acc.push({ order, id });
+      }
+      return acc;
+    };
+    const exerciseExecutionsToUpdate = newOrder.reduce(reducer, []);
+
+    const promises = exerciseExecutionsToUpdate.map((ee) =>
+      ExerciseExecutionsController.update(ee.id, ee));
+    await Promise.allSettled(promises);
+  },
 };
 
-const getPreviousExerciseExecutionSummaries = async (self, exerciseIds) => {
-  const promises = exerciseIds.map((id) => PreviousExecutionSummaryController.get(id));
+const getPreviousExerciseExecutionSummaries = async (exerciseIds) => {
+  const promises = exerciseIds.map((id) => exercises.PreviousExecutionSummaryController.get(id));
   const responses = await Promise.allSettled(promises);
   const responseBodies = responses.map((response) => {
     const { body } = response?.value;
@@ -333,23 +347,26 @@ const getPreviousExerciseExecutionSummaries = async (self, exerciseIds) => {
   return arrayUtils.compact(responseBodies);
 };
 
-async function mounted() {
-  const { id } = this.$route.params;
-  const workout = await getWorkout(this, id);
+const fetchFrontLoadedData = async (self) => {
+  const { id } = self.$route.params;
+  const workout = await getWorkout(self, id);
 
   workout.exerciseExecutions = workout.exerciseExecutions.map((ee) => {
     const setExecutions = ee.setExecutions.sort((a, b) => (a.order < b.order ? -1 : 1));
     return { ...ee, setExecutions };
   });
 
-  this.$set(this, 'workout', workout);
+  self.$set(self, 'workout', workout);
 
   const summaries = await getPreviousExerciseExecutionSummaries(
-    this,
     workout.exerciseExecutions.map((ee) => ee.exercise.id),
   );
 
-  this.$set(this, 'previousExerciseSummaries', summaries);
+  self.$set(self, 'previousExerciseSummaries', summaries);
+};
+
+async function mounted() {
+  await fetchFrontLoadedData(this);
 }
 
 export default {
