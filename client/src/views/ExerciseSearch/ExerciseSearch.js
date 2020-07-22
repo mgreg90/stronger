@@ -3,7 +3,7 @@ import debounce from 'lodash.debounce';
 import AppHeader from '@/components/AppHeader.vue';
 import TextInput from '@/components/TextInput.vue';
 import ExerciseExecutionsController from '@/api/v1/controllers/ExerciseExecutionsController';
-import ExercisesSearchController from '@/api/v1/controllers';
+import { exercises } from '@/api/v1/controllers';
 import apiUtils from '@/utils/apiUtils';
 
 const components = {
@@ -18,7 +18,7 @@ const data = () => ({
 
 const methods = {
   debouncedSearch: debounce(async function search() {
-    const response = await ExercisesSearchController.create({
+    const response = await exercises.SearchController.create({
       query: this.$data.searchText,
     });
 
