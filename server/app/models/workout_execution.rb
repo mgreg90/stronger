@@ -29,4 +29,11 @@ class WorkoutExecution < ApplicationRecord
       send("#{field}=", nil)
     end
   end
+
+  def reorder_exercise_executions
+    updates = exercise_executions.map.with_index do |ee, idx|
+      [ee.id, { order: idx + 1}]
+    end.to_h
+    exercise_executions.update(updates.keys, updates.values)
+  end
 end

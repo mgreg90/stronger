@@ -14,12 +14,15 @@ class Api::V1::ExerciseExecutionsController < AuthenticatedApiController
   end
 
   def update
-    exercise_execution = ExerciseExecution.update(update_params)
+    exercise_execution = ExerciseExecution.find(params[:id]).update(update_params)
     render json: exercise_execution, status: :ok
   end
 
   def destroy
-    ExerciseExecution.destroy(params[:id])
+    exercise_execution = ExerciseExecution.includes(:workout_execution).find(params[:id])
+    workout_execution = exercise_execution.workout_execution
+    exercise_execution.destroy
+    workout_execution.reorder_exercise_executions
   end
 
   private
@@ -29,6 +32,6 @@ class Api::V1::ExerciseExecutionsController < AuthenticatedApiController
   end
 
   def update_params
-    params.permit(:id, :status)
+    params.permit(:order)
   end
 end
