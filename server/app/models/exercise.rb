@@ -15,9 +15,6 @@ class Exercise < ApplicationRecord
       trigram: { threshold: 0.2 }
     }
 
-  def self.search query
-  end
-
   def convert_codes_to_ids!
     memo = {}
 

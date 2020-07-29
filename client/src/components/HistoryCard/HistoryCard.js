@@ -17,7 +17,7 @@ const components = {
 
 const minMaxFor = (field, exerciseExecution) => {
   const completedSets = exerciseExecution.setExecutions.filter((se) => se.status === 'completed');
-  if (!completedSets?.[0]?.[field]) return [0, 0];
+  if (completedSets?.[0]?.[field] == null) return [0, 0]; // `== null` works for null && undefined
   let minVal = completedSets[0][field];
   let maxVal = completedSets[0][field];
 

@@ -59,14 +59,19 @@ module NonDbModels
     end
 
     def last_exercise_execution
-      inner_join = 'INNER JOIN set_executions ON set_executions.exercise_execution_id = exercise_executions.id'
-      @last_exercise_execution ||= exercise.
-        exercise_executions.
-        joins(inner_join).
-        joins(:workout_execution).
-        where('exercise_executions.user_id = ? AND set_executions.finished_at IS NOT NULL AND workout_executions.finished_at IS NOT NULL', user.id).
-        order('set_executions.finished_at desc').
-        first
+      @last_exercise_execution ||= begin
+        inner_join = 'INNER JOIN set_executions ON set_executions.exercise_execution_id = exercise_executions.id'
+        where = 'exercise_executions.user_id = ? AND set_executions.finished_at IS NOT NULL AND workout_executions.finished_at IS NOT NULL'
+        order = 'set_executions.finished_at desc'
+
+        exercise.
+          exercise_executions.
+          joins(inner_join).
+          joins(:workout_execution).
+          where(where, user.id).
+          order(order).
+          first
+      end
     end
   end
 end
