@@ -82,3 +82,7 @@
 - :name: Single Leg Romanian Deadlift
   :exercise_type_codes:
   - PULL
+
+- :name: Adductor Slides
+  :exercise_type_codes:
+  - PULL
